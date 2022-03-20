@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Direct Foot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="strLogin">Login:</string>
+    <string name="strPassword">Password:</string>
+    <string name="strConnect">CONNECT</string>
+
+    <string name="recherche">Recherche</string>
+    <string name="parametres">Parametres</string>
+    <string name="accueil">Accueil</string>
+    <string name="direct">Direct</string>
+    <string name="favoris">Favoris</string>
+    <string name="classement">Classement</string>
+    <string name="search">search</string>
+    <string name="team_1">Team 1</string>
+    <string name="score">Score</string>
+    <string name="date">Date</string>
+    <string name="team_2">Team 2</string>
+    <string name="statut">Statut</string>
+    <string name="score_1">Score</string>
+    <string name="score_2">Score</string>
+    <string name="imageequipe">imageEquipe</string>
+    <string name="equipe">Paris ST. Germain</string>
+    <string name="equipe_title">Equipes</string>
+    <string name="rank_title">Rang</string>
+
+
+    <string name="points">Points</string>
+    <string name="j">J</string>
+    <string name="g">G</string>
+    <string name="n">N</string>
+    <string name="p">P</string>
+    <string name="diff_but">+/-</string>
+    <string name="bp">BP</string>
+    <string name="bc">BC</string>
+    <string name="v">V</string>
+    <string name="rank">1</string>
+    <string name="logo">Logo</string>
+    <string name="equipes">Equipes</string>
+    <string name="pts">Pts</string>
+    <string name="competitions_favorites">COMPÉTITIONS FAVORITES</string>
+    <string name="competitions">COMPÉTITIONS</string>
+
+    <string name="daysPast7">P-7</string>
+    <string name="daysPast6">P-6</string>
+    <string name="daysPast5">P-5</string>
+    <string name="daysPast4">P-4</string>
+    <string name="daysPast3">P-3</string>
+    <string name="daysPast2">P-2</string>
+    <string name="daysPast1">P-1</string>
+    <string name="today">P</string>
+
+    <string name="daysPlus1">P+1</string>
+    <string name="daysPlus2">P+2</string>
+    <string name="daysPlus3">P+3</string>
+    <string name="daysPlus4">P+4</string>
+    <string name="daysPlus5">P+5</string>
+    <string name="daysPlus6">P+6</string>
+    <string name="daysPlus7">P+7</string>
+    <string name="entrez_votre_recherche_ici">Entrez votre recherche ici</string>
+    <string name="equipe_search">EQUIPES</string>
+    <string name="tout">TOUT</string>
+    <string name="competitions_search">COMPÉTITIONS</string>
+    <string name="search_image">search_image</string>
+    <string name="result_search_msg">Résultat de la recherche</string>
+    <string name="ligue_btn">Button</string>
+    <string name="logo_ligue">logo_ligue</string>
+
+
+</resources>

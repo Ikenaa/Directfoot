@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/bottom"
+
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/direct"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            android:layout_weight="1"
+
+            android:drawableTop="@drawable/ball"
+            android:text="@string/direct"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/search"
+
+            style="?android:attr/buttonBarButtonStyle"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+
+            android:drawableTop="@drawable/search"
+
+            android:text="@string/recherche"
+            android:textColor="@color/white"
+
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/favoris"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:layout_weight="1"
+
+            android:drawableTop="@android:drawable/btn_star"
+
+            android:text="@string/favoris"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/classement"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:drawableTop="@android:drawable/ic_menu_sort_by_size"
+
+            android:text="@string/classement"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+
+</RelativeLayout>
