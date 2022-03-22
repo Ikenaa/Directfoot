@@ -66,6 +66,20 @@
     <string name="result_search_msg">Résultat de la recherche</string>
     <string name="ligue_btn">Button</string>
     <string name="logo_ligue">logo_ligue</string>
+    <string name="homeposs">homePoss</string>
+    <string name="possession">Possession</string>
+    <string name="awayposs">awayPoss</string>
+    <string name="homeshots">homeShots</string>
+    <string name="tir">Tir</string>
+    <string name="awayshots">awayShots</string>
+    <string name="homeshotsot">homeShotsOT</string>
+    <string name="tirs_cadr_s">Tirs cadrés</string>
+    <string name="awayshotsot">awayShotsOT</string>
+    <string name="homepass">homePass</string>
+    <string name="passes">Passes</string>
+    <string name="awaypass">awayPass</string>
+    <string name="homeshots">homeShots</string>
+    <string name="pr_cision_des_passes">Précision des passes</string>
 
 
 </resources>

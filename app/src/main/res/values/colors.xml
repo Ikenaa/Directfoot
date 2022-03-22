@@ -11,5 +11,6 @@
     <color name="fragment2color">#ffbd59</color>
     <color name="bottom">#18061b</color>
     <color name="top">#493033</color>
+    <color name="item_bc">#2c2f33</color>
 
 </resources>
