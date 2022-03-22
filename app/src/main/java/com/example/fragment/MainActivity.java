@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity{
         AccueilFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragment1 = new FragmentAccueil();
+                fragment1.setFragmentActivity(main);
 
 
-                replaceFragment(new FragmentAccueil());
+                replaceFragment(fragment1);
 
             }
         });

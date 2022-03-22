@@ -54,56 +54,47 @@
                 android:id="@+id/match_joue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/j"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/match_gagne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:textColor="@color/white"
-
                 android:text="@string/v"
+
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/match_nul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/n"
-                android:textColor="@color/white"
-
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/match_perdu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/p"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/but_pour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/bp"
                 android:textAlignment="center"
@@ -115,7 +106,6 @@
                 android:id="@+id/but_contre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/bc"
                 android:textAlignment="center"
@@ -127,7 +117,6 @@
                 android:id="@+id/diff_but"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/diff_but"
                 android:textAlignment="center"

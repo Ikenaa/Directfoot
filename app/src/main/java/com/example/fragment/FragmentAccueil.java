@@ -1,7 +1,9 @@
 package com.example.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -10,8 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.BackEnd.Championship;
+import com.example.BackEnd.Game;
+import com.example.BackEnd.LiveGames;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class FragmentAccueil extends Fragment {
 
@@ -26,6 +37,7 @@ public class FragmentAccueil extends Fragment {
 
     }
 
+   @RequiresApi(api = Build.VERSION_CODES.O)
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -33,23 +45,15 @@ public class FragmentAccueil extends Fragment {
        TextView txtLigue = new TextView((currentActivity));
        txtLigue.setText("Ligue 1");
 
+       view = inflater.inflate(R.layout.fragment_accueil, container,false);
+       LinearLayout competFav = view.findViewById(R.id.compet);
+       try {
+          LiveGames lg =  new LiveGames(view, inflater, competFav);
+          lg.execute();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
 
-
-
-
-
-        view = inflater.inflate(R.layout.fragment_accueil, container,false);
-        LinearLayout competFav = view.findViewById(R.id.compet);
-        for(Integer i=0;i<50;i++){
-            View truc =  inflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-            String t = i.toString();
-            ((TextView)truc.findViewById(R.id.team1)).setText(t);
-
-            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
-
-
-
-        }
 
         return view;
     }

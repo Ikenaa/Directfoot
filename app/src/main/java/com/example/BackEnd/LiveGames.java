@@ -1,6 +1,16 @@
 package com.example.BackEnd;
 
+import android.os.AsyncTask;
+import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel;
+import com.example.fragment.R;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -16,7 +26,7 @@ import com.example.BackEnd.JsonModel.LiveGamesJsonModel.*;
  * Declaration of class LiveGames
  * This class creates an object that contains all games by the 5 main championships
  */
-public class LiveGames {
+public class LiveGames extends AsyncTask<Void, Void, Void> {
 
 
     private ArrayList<Item> sportsList;
@@ -27,7 +37,9 @@ public class LiveGames {
     private int indexGermanyChampionship;
     private int indexEnglandChampionship;
     private LiveGamesJsonModel.Objet jsonObject;
-
+    private View view;
+    private LayoutInflater layoutInflater;
+    private LinearLayout competFav;
 
     /**
      * Constructor of LiveGames object
@@ -35,23 +47,154 @@ public class LiveGames {
      *
      * @throws IOException
      */
-    public LiveGames() throws IOException {
+    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav) throws IOException {
+
+        this.competFav = competFav;
+        this.layoutInflater = layoutInflater;
+        this.view = view;
+
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected Void doInBackground(Void... voids) {
         //we need the todays' date in a particular format in the url of the api
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDateTime today = LocalDateTime.now();
 
-       //String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/" + dtf.format(today) + ".json";
-        String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/20220312.json";
+        String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/" + dtf.format(today) + ".json";
+        //String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/20220319.json";
 
 
-        //read the answer of the api
-        URL url = new URL(urlString);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
-        String jsonString = bufferedReader.readLine();
+
+        try {
+            //read the answer of the api
+            URL url = new URL(urlString);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String jsonString = bufferedReader.readLine();
+            jsonObject = new Gson().fromJson(jsonString, LiveGamesJsonModel.Objet.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Create an objet with this answer
-        jsonObject = new Gson().fromJson(jsonString, LiveGamesJsonModel.Objet.class);
 
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void voids) {
+        if(isAFootballDay())
+        {
+            if(isAFranceChampionshipDay())
+            {
+                ArrayList<Game> franceGames = getEachMatchByChampionship(Championship.LIGUE_1);
+                for(Game game : franceGames)
+                {
+                    View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+
+                    if(game.getStatut().equals(Game.Statut.RUNNING) || game.getStatut().equals(Game.Statut.FINISHED) || game.getStatut().equals(Game.Statut.HALF_TIME) )
+                    {
+                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    }
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+
+                    competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                }
+            }
+            if(isAEnglandChampionshipDay())
+            {
+                ArrayList<Game> franceGames = getEachMatchByChampionship(Championship.PREMIER_LEAGUE);
+                for(Game game : franceGames)
+                {
+                    View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+
+                    if(game.getStatut().equals(Game.Statut.RUNNING) || game.getStatut().equals(Game.Statut.FINISHED) || game.getStatut().equals(Game.Statut.HALF_TIME) )
+                    {
+                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    }
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+
+                    competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                }
+            }
+            if(isAGermanyChampionshipDay())
+            {
+                ArrayList<Game> franceGames = getEachMatchByChampionship(Championship.BUNDESLIGA);
+                for(Game game : franceGames)
+                {
+                    View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+
+                    if(game.getStatut().equals(Game.Statut.RUNNING) || game.getStatut().equals(Game.Statut.FINISHED) || game.getStatut().equals(Game.Statut.HALF_TIME) )
+                    {
+                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    }
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+
+                    competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                }
+            }
+            if(isAItalyChampionshipDay())
+            {
+                ArrayList<Game> franceGames = getEachMatchByChampionship(Championship.SERIE_A);
+                for(Game game : franceGames)
+                {
+                    View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+
+                    if(game.getStatut().equals(Game.Statut.RUNNING) || game.getStatut().equals(Game.Statut.FINISHED) || game.getStatut().equals(Game.Statut.HALF_TIME) )
+                    {
+                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    }
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+
+                    competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                }
+            }
+            if(isASpainChampionshipDay())
+            {
+                ArrayList<Game> franceGames = getEachMatchByChampionship(Championship.LIGA);
+                for(Game game : franceGames)
+                {
+                    View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+
+                    if(game.getStatut().equals(Game.Statut.RUNNING) || game.getStatut().equals(Game.Statut.FINISHED) || game.getStatut().equals(Game.Statut.HALF_TIME) )
+                    {
+                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    }
+                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+
+                    competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                }
+            }
+        }
     }
 
     /**
