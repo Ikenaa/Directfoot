@@ -7,17 +7,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/container_bot"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/container_style"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -51,8 +53,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginBottom="15dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -203,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Fautes"
+                android:text="@string/fautes"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
@@ -237,7 +239,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cartons Jaunes"
+                android:text="@string/cartons_jaunes"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
@@ -271,7 +273,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cartons Rouges"
+                android:text="@string/cartons_rouges"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
@@ -305,7 +307,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hors-Jeu"
+                android:text="@string/hors_jeu"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 

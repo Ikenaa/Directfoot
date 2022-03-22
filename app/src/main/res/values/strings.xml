@@ -25,7 +25,7 @@
     <string name="equipe_title">Equipes</string>
     <string name="rank_title">Rang</string>
 
-
+    <!-- Classement -->
     <string name="points">Points</string>
     <string name="j">J</string>
     <string name="g">G</string>
@@ -39,9 +39,12 @@
     <string name="logo">Logo</string>
     <string name="equipes">Equipes</string>
     <string name="pts">Pts</string>
-    <string name="competitions_favorites">COMPÉTITIONS FAVORITES</string>
+
+    <!-- Accueil -->
     <string name="competitions">COMPÉTITIONS</string>
 
+
+    <!-- Panel des jours -->
     <string name="daysPast7">P-7</string>
     <string name="daysPast6">P-6</string>
     <string name="daysPast5">P-5</string>
@@ -49,6 +52,7 @@
     <string name="daysPast3">P-3</string>
     <string name="daysPast2">P-2</string>
     <string name="daysPast1">P-1</string>
+
     <string name="today">P</string>
 
     <string name="daysPlus1">P+1</string>
@@ -58,28 +62,38 @@
     <string name="daysPlus5">P+5</string>
     <string name="daysPlus6">P+6</string>
     <string name="daysPlus7">P+7</string>
+
+
+    <!-- Recherche -->
     <string name="entrez_votre_recherche_ici">Entrez votre recherche ici</string>
     <string name="equipe_search">EQUIPES</string>
     <string name="tout">TOUT</string>
     <string name="competitions_search">COMPÉTITIONS</string>
     <string name="search_image">search_image</string>
     <string name="result_search_msg">Résultat de la recherche</string>
+
+
+    <!-- Une Ligue -->
     <string name="ligue_btn">Button</string>
     <string name="logo_ligue">logo_ligue</string>
-    <string name="homeposs">homePoss</string>
+
+
+    <!-- Statistiques d'un match -->
     <string name="possession">Possession</string>
-    <string name="awayposs">awayPoss</string>
-    <string name="homeshots">homeShots</string>
     <string name="tir">Tir</string>
-    <string name="awayshots">awayShots</string>
-    <string name="homeshotsot">homeShotsOT</string>
     <string name="tirs_cadr_s">Tirs cadrés</string>
-    <string name="awayshotsot">awayShotsOT</string>
-    <string name="homepass">homePass</string>
     <string name="passes">Passes</string>
-    <string name="awaypass">awayPass</string>
-    <string name="homeshots">homeShots</string>
     <string name="pr_cision_des_passes">Précision des passes</string>
+    <string name="fautes">Fautes</string>
+    <string name="cartons_jaunes">Cartons Jaunes</string>
+    <string name="cartons_rouges">Cartons Rouges</string>
+    <string name="hors_jeu">Hors-Jeu</string>
+    <string name="name_Champ">Ligue 1</string>
+    <string name="dateMatch">Mer. 16/03</string>
+    <string name="statutMatch">Terminé</string>
+    <string name="homeScore">3</string>
+    <string name="vs">-</string>
+    <string name="awayScore">0</string>
 
 
 </resources>
