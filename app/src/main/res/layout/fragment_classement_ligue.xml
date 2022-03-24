@@ -24,6 +24,42 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/match_cmp"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/rank"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/rank_title"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/teamName"
+                    android:layout_width="119dp"
+                    android:layout_height="19dp"
+
+
+                    android:layout_marginLeft="2dp"
+                    android:text="@string/equipe_title"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/points"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/points"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <HorizontalScrollView
@@ -35,8 +71,83 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/played"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/j"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/win"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/g"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/draw"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/n"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/lose"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/p"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/goalsFor"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/bp"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/goalsAgainst"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/bc"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/goalDiff"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/diff_but"
+
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
         </HorizontalScrollView>
 
     </LinearLayout>
+
 </RelativeLayout>

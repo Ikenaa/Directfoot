@@ -21,12 +21,12 @@
     <string name="score_1">Score</string>
     <string name="score_2">Score</string>
     <string name="imageequipe">imageEquipe</string>
-    <string name="equipe">Paris ST. Germain</string>
+
     <string name="equipe_title">Equipes</string>
     <string name="rank_title">Rang</string>
 
     <!-- Classement -->
-    <string name="points">Points</string>
+    <string name="points">Pts</string>
     <string name="j">J</string>
     <string name="g">G</string>
     <string name="n">N</string>
