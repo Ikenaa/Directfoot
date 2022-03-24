@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/match_cmp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/rank"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+
+            android:text="01" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="30dp"
+            android:layout_height="19dp"
+
+            android:src="@drawable/ball" />
+
+        <TextView
+            android:id="@+id/teamName"
+            android:layout_width="103dp"
+            android:layout_height="19dp"
+            android:textColor="@color/white"
+
+
+            android:text="Juventus FC" />
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

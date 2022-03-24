@@ -36,7 +36,7 @@
                 android:maxHeight="125dp"
                 android:scaleType="fitCenter"
 
-                app:srcCompat="@drawable/Logo_Ligue1"
+                app:srcCompat="@drawable/logo_ligue1"
 
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -50,7 +50,7 @@
                 android:contentDescription="@string/logo_ligue"
                 android:maxHeight="125dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/Logo_Bundesliga" />
+                app:srcCompat="@drawable/logo_bundesliga" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:contentDescription="@string/logo_ligue"
                 android:maxHeight="125dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/Logo_SerieA" />
+                app:srcCompat="@drawable/logo_serie_a" />
 
             <ImageButton
                 android:id="@+id/premier_league"
@@ -80,7 +80,7 @@
                 android:contentDescription="@string/logo_ligue"
                 android:maxHeight="125dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/Logo_PrL" />
+                app:srcCompat="@drawable/logo_premier_league" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +99,7 @@
                 android:maxHeight="100dp"
 
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/Logo_Liga" />
+                app:srcCompat="@drawable/logo_liga" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
