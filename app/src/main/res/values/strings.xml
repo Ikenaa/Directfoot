@@ -94,6 +94,7 @@
     <string name="homeScore">3</string>
     <string name="vs">-</string>
     <string name="awayScore">0</string>
+    <string name="no_live_match">Pas de match en direct</string>
 
 
 </resources>
