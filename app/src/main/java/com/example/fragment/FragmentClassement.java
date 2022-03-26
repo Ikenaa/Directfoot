@@ -41,8 +41,12 @@ public class FragmentClassement extends Fragment {
             LinearLayout leftSideTable = view.findViewById(R.id.layoutLeftSide);
             View leftSide = inflater.inflate(R.layout.left_side_table, view.findViewById(R.id.layoutLeftSide), false);
             ((TextView) leftSide.findViewById(R.id.rank)).setText("1");
+<<<<<<< Updated upstream
             ((TextView) leftSide.findViewById(R.id.teamName)).setText("Milan AC");
             Drawable myDrawable = getResources().getDrawable(R.drawable.logo_bundesliga);
+=======
+            Drawable myDrawable = getResources().getDrawable(R.drawable.logo_liga);
+>>>>>>> Stashed changes
             ((ImageView) leftSide.findViewById(R.id.logo)).setImageDrawable(myDrawable);
             leftSideTable.addView(leftSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
 
