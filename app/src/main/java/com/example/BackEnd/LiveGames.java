@@ -49,9 +49,9 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
      */
     public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav) throws IOException {
 
+        this.view = view;
         this.competFav = competFav;
         this.layoutInflater = layoutInflater;
-        this.view = view;
 
 
     }
@@ -64,8 +64,8 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDateTime today = LocalDateTime.now();
 
-        String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/" + dtf.format(today) + ".json";
-        //String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/20220319.json";
+        //String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/" + dtf.format(today) + ".json";
+        String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/20220320.json";
 
 
 

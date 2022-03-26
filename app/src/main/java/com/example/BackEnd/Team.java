@@ -1,6 +1,11 @@
 package com.example.BackEnd;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.example.BackEnd.JsonModel.TableJsonModel;
+
+import java.io.InputStream;
 
 public class Team {
 
@@ -15,6 +20,7 @@ public class Team {
     private int playedNumber;
     private int goalDifference;
     private String urlLogo;
+    private Bitmap logo;
 
     public Team(TableJsonModel.Item item)
     {
@@ -29,6 +35,13 @@ public class Team {
         playedNumber = item.getNombre_de_matchs();
         goalDifference = item.getDifference_de_buts();
         urlLogo = item.getEquipe().getUrl_image();
+
+        try {
+            InputStream in=new java.net.URL(urlLogo).openStream();
+            logo= BitmapFactory.decodeStream(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int getRank() {
@@ -73,5 +86,9 @@ public class Team {
 
     public String getUrlLogo() {
         return urlLogo;
+    }
+
+    public Bitmap getLogo() {
+        return logo;
     }
 }
