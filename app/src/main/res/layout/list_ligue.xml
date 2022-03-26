@@ -22,84 +22,110 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
-            <ImageButton
-                android:id="@+id/ligue_1"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/logo_ligue"
-                android:maxHeight="125dp"
-                android:scaleType="fitCenter"
+                android:orientation="horizontal">
 
-                app:srcCompat="@drawable/logo_ligue1"
+                <ImageButton
+                    android:id="@+id/ligue_1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/logo_ligue"
+                    android:maxHeight="125dp"
+                    android:scaleType="fitCenter"
 
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                    app:srcCompat="@drawable/logo_ligue1"
 
-            <ImageButton
-                android:id="@+id/bundesliga"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/logo_ligue"
-                android:maxHeight="125dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/logo_bundesliga" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/premier_league"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/logo_ligue"
+                    android:maxHeight="125dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/logo_premier_league" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/serie_A"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/logo_ligue"
+                    android:maxHeight="125dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/logo_serie_a" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/bundesliga"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/logo_ligue"
+                    android:maxHeight="125dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/logo_bundesliga" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/liga"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/logo_ligue"
+                    android:maxHeight="100dp"
+
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/logo_liga" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/serie_A"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/logo_ligue"
-                android:maxHeight="125dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/logo_serie_a" />
-
-            <ImageButton
-                android:id="@+id/premier_league"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/logo_ligue"
-                android:maxHeight="125dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/logo_premier_league" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/liga"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/logo_ligue"
-                android:maxHeight="100dp"
-
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/logo_liga" />
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
