@@ -42,13 +42,11 @@ public class FragmentAccueil extends Fragment {
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-       TextView txtLigue = new TextView((currentActivity));
-       txtLigue.setText("Ligue 1");
 
        view = inflater.inflate(R.layout.fragment_accueil, container,false);
        LinearLayout competFav = view.findViewById(R.id.compet);
        try {
-          LiveGames lg =  new LiveGames(view, inflater, competFav);
+          LiveGames lg =  new LiveGames(view, inflater, competFav, currentActivity);
           lg.execute();
        } catch (IOException e) {
            e.printStackTrace();

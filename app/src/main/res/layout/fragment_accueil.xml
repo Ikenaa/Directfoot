@@ -14,7 +14,7 @@
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#43B362">
+            android:background="@color/top_jours">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -22,6 +22,7 @@
 
                 <Button
                     android:id="@+id/daysPast7"
+                    android:textColor="@color/white"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -30,6 +31,8 @@
 
                 <Button
                     android:id="@+id/daysPast6"
+                    android:textColor="@color/white"
+
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -38,6 +41,8 @@
 
                 <Button
                     android:id="@+id/daysPast5"
+                    android:textColor="@color/white"
+
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,6 +52,8 @@
                 <Button
                     android:id="@+id/daysPast4"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -55,6 +62,8 @@
                 <Button
                     android:id="@+id/daysPast3"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -63,6 +72,8 @@
                 <Button
                     android:id="@+id/daysPast2"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -71,6 +82,8 @@
                 <Button
                     android:id="@+id/daysPast1"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,6 +92,8 @@
                 <Button
                     android:id="@+id/today"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,6 +102,8 @@
                 <Button
                     android:id="@+id/daysPlus1"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,6 +112,8 @@
                 <Button
                     android:id="@+id/daysPlus2"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -103,6 +122,8 @@
                 <Button
                     android:id="@+id/daysPlus3"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -111,6 +132,8 @@
                 <Button
                     android:id="@+id/daysPlus4"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -119,6 +142,8 @@
                 <Button
                     android:id="@+id/daysPlus5"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -127,6 +152,8 @@
                 <Button
                     android:id="@+id/daysPlus6"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -135,6 +162,8 @@
                 <Button
                     android:id="@+id/daysPlus7"
                     style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@color/white"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,17 +179,7 @@
                 android:id="@+id/compet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/name_compet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#061250"
-                    android:text="@string/competitions"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp" />
-            </LinearLayout>
+                android:orientation="vertical"/>
         </ScrollView>
     </LinearLayout>
 

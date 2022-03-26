@@ -8,6 +8,7 @@ import static com.example.BackEnd.Game.Statut.RUNNING;*/
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,9 @@ import com.example.BackEnd.JsonModel.LiveGamesJsonModel.*;
 import com.google.gson.Gson;
 
 import static com.example.BackEnd.Game.Statut.*;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * Declaration of class Game
@@ -60,6 +64,7 @@ public class Game {
     private String homeOffSide;
     private String awayOffSide;
     private ArrayList<GameEvent> gameEvents;
+    private Bitmap logoHome,logoAway;
 
     /**
      * Declaration of enum Statut
@@ -68,6 +73,7 @@ public class Game {
     {
         RUNNING, FINISHED, COMING, HALF_TIME, POSPONED;
     }
+
 
     /**
      * Constructor of Game
@@ -116,6 +122,17 @@ public class Game {
         hour = sdf.format(game.getDate());
         urlHomeLogo = game.getSpecifics().getDomicile().getEquipe().getUrl_image();
         urlAwayLogo = game.getSpecifics().getExterieur().getEquipe().getUrl_image();
+
+        try {
+            InputStream in=new java.net.URL(urlHomeLogo).openStream();
+            logoHome= BitmapFactory.decodeStream(in);
+
+            InputStream in2=new java.net.URL(urlAwayLogo).openStream();
+            logoAway= BitmapFactory.decodeStream(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Game(FixturesJsonModel.Event game)
@@ -160,6 +177,17 @@ public class Game {
 
         urlHomeLogo = game.getSpecifics().getDomicile().getEquipe().getUrl_image();
         urlAwayLogo = game.getSpecifics().getExterieur().getEquipe().getUrl_image();
+
+
+        try {
+            InputStream in=new java.net.URL(urlHomeLogo).openStream();
+            logoHome= BitmapFactory.decodeStream(in);
+
+            InputStream in2=new java.net.URL(urlAwayLogo).openStream();
+            logoAway= BitmapFactory.decodeStream(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void generateStat() throws IOException {
@@ -333,4 +361,14 @@ public class Game {
     public String getDate() {
         return date;
     }
+
+    public Bitmap getLogoHome() {
+        return logoHome;
+    }
+
+    public Bitmap getLogoAway() {
+        return logoAway;
+    }
+
 }
+
