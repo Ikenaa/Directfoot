@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.BackEnd.Championship;
+import com.example.BackEnd.Table;
+
 
 public class FragmentClassement extends Fragment {
 
@@ -23,17 +26,30 @@ public class FragmentClassement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_classement_ligue, container, false);
-        for(int i = 0; i< 20; i++) {
+
+        LinearLayout leftSideTable = view.findViewById(R.id.layoutLeftSide);
+        LinearLayout rightSideTable = view.findViewById((R.id.layoutRightSide));
+
+        try {
+            Table italyTable = new Table(Championship.SERIE_A, view, inflater, leftSideTable, rightSideTable);
+            italyTable.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*for(int i = 0; i< 20; i++) {
+
             LinearLayout leftSideTable = view.findViewById(R.id.layoutLeftSide);
             View leftSide = inflater.inflate(R.layout.left_side_table, view.findViewById(R.id.layoutLeftSide), false);
             ((TextView) leftSide.findViewById(R.id.rank)).setText("1");
+            ((TextView) leftSide.findViewById(R.id.teamName)).setText("Milan AC");
             Drawable myDrawable = getResources().getDrawable(R.drawable.logo_bundesliga);
             ((ImageView) leftSide.findViewById(R.id.logo)).setImageDrawable(myDrawable);
-            ((TextView) leftSide.findViewById(R.id.points)).setText("32");
             leftSideTable.addView(leftSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
 
             LinearLayout rightSideTable = view.findViewById((R.id.layoutRightSide));
             View rightSide = inflater.inflate(R.layout.right_side_table, view.findViewById(R.id.layoutRightSide), false);
+
+            ((TextView) rightSide.findViewById(R.id.points)).setText("32");
             ((TextView) rightSide.findViewById(R.id.played)).setText("11");
             ((TextView) rightSide.findViewById(R.id.win)).setText("12");
             ((TextView) rightSide.findViewById(R.id.draw)).setText("13");
@@ -42,7 +58,8 @@ public class FragmentClassement extends Fragment {
             ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText("16");
             ((TextView) rightSide.findViewById(R.id.goalDiff)).setText("17");
             rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
-        }
+        }*/
+
         return view;
     }
 
