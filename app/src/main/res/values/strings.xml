@@ -45,23 +45,23 @@
 
 
     <!-- Panel des jours -->
-    <string name="daysPast7">P-7</string>
-    <string name="daysPast6">P-6</string>
-    <string name="daysPast5">P-5</string>
-    <string name="daysPast4">P-4</string>
-    <string name="daysPast3">P-3</string>
-    <string name="daysPast2">P-2</string>
-    <string name="daysPast1">P-1</string>
+    <string name="daysPast7">Ven 12/03</string>
+    <string name="daysPast6">Ven 12/03</string>
+    <string name="daysPast5">Ven 12/03</string>
+    <string name="daysPast4">Ven 12/03</string>
+    <string name="daysPast3">Ven 12/03</string>
+    <string name="daysPast2">Ven 12/03</string>
+    <string name="daysPast1">Mer 10/03</string>
 
-    <string name="today">P</string>
+    <string name="today">Aujd</string>
 
-    <string name="daysPlus1">P+1</string>
-    <string name="daysPlus2">P+2</string>
-    <string name="daysPlus3">P+3</string>
-    <string name="daysPlus4">P+4</string>
-    <string name="daysPlus5">P+5</string>
-    <string name="daysPlus6">P+6</string>
-    <string name="daysPlus7">P+7</string>
+    <string name="daysPlus1">Ven 12/03</string>
+    <string name="daysPlus2">Sam 13/03</string>
+    <string name="daysPlus3">Dim 14/03</string>
+    <string name="daysPlus4">Ven 12/03</string>
+    <string name="daysPlus5">Ven 12/03</string>
+    <string name="daysPlus6">Ven 12/03</string>
+    <string name="daysPlus7">Ven 12/03</string>
 
 
     <!-- Recherche -->

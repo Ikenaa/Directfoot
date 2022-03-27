@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                replaceFragment(new FragmentRecherche());
+                replaceFragment(new FragmentMatch(mainActivity));
 
             }
         });
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                replaceFragment(new FragmentDirect());
+                replaceFragment(new FragmentDirect(mainActivity));
 
             }
         });

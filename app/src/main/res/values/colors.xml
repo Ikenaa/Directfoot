@@ -9,9 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="fragment1color">#49df89</color>
     <color name="fragment2color">#ffbd59</color>
-    <color name="bottom">#7701001C</color>
+    <color name="bottom">#77090909</color>
     <color name="top">#493033</color>
     <color name="item_bc">#863F444A</color>
-    <color name="top_jours">#A3070707</color>
+    <color name="top_jours">#BF250F0B</color>
 
 </resources>

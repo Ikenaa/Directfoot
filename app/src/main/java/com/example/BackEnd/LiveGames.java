@@ -14,6 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel;
+import com.example.fragment.FragmentDirect;
+import com.example.fragment.FragmentFixtures;
+import com.example.fragment.FragmentMatch;
+import com.example.fragment.FragmentRecherche;
+import com.example.fragment.MainActivity;
 import com.example.fragment.R;
 import com.google.gson.Gson;
 
@@ -53,7 +58,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private ArrayList<Game> germanyGames;
     private ArrayList<Game> englandGames;
     private ArrayList<Game> spainGames;
-
+    private MainActivity currentActivity;
 
 
     /**
@@ -62,12 +67,12 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
      *
      * @throws IOException
      */
-    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, AppCompatActivity currentActivity) throws IOException {
+    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, MainActivity currentActivity) throws IOException {
 
         this.view = view;
         this.competFav = competFav;
         this.layoutInflater = layoutInflater;
-
+        this.currentActivity = currentActivity;
 
 
 
@@ -145,6 +150,15 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                 for(Game game : franceGames)
                 {
                     View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                    truc.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // ADD your action here
+                            currentActivity.replaceFragment(new FragmentMatch(currentActivity));
+
+                        }
+                    });
 
                     ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                     ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());

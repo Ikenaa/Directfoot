@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints"
-        android:background="@drawable/match_cmp">
+        >
 
         <TextView
             android:layout_margin="2dp"

@@ -8,5 +8,5 @@
     android:gravity="left"
     android:textColor="@color/white"
     android:padding="5dip"
-    android:background="@drawable/match_cmp"
+    android:background="@color/item_bc"
     />
