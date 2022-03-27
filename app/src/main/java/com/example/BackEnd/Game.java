@@ -24,11 +24,8 @@ import com.example.BackEnd.JsonModel.GameStatJsonModel;
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel.*;
 import com.google.gson.Gson;
 
-import static com.example.BackEnd.Game.Statut.*;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 /**
  * Declaration of class Game
  */
@@ -41,7 +38,7 @@ public class Game {
     private String awayScore;
     private String hour;
     private String date;
-    private Statut statut;
+    private String statut;
     private String urlHomeLogo;
     private String urlAwayLogo;
     private String urlStat;
@@ -69,10 +66,6 @@ public class Game {
     /**
      * Declaration of enum Statut
      */
-    public enum Statut
-    {
-        RUNNING, FINISHED, COMING, HALF_TIME, POSPONED;
-    }
 
 
     /**
@@ -91,19 +84,22 @@ public class Game {
         switch(game.getStatut().getType())
         {
             case "avenir" :
-                statut = COMING;
+                statut = Statut.COMING;
                 break;
             case "termine" :
-                statut = FINISHED;
+                statut = Statut.FINISHED;
                 break;
             case "encours" :
-                statut = RUNNING;
+                statut = Statut.RUNNING;
                 break;
             case "mi-temps" :
-                statut = HALF_TIME;
+                statut = Statut.HALF_TIME;
                 break;
             case "reporte" :
-                statut = POSPONED;
+                statut = Statut.POSTPONED;
+                break;
+            case "annule" :
+                statut = Statut.CANCELED;
                 break;
             default :
                 statut = null;
@@ -111,7 +107,7 @@ public class Game {
         }
 
         //Score if game is running, finished or half-time
-        if(statut.equals(RUNNING) || statut.equals(FINISHED)) {
+        if(statut.equals(Statut.RUNNING) || statut.equals(Statut.FINISHED)) {
             homeScore = game.getSpecifics().getScore().getDomicile();
             awayScore = game.getSpecifics().getScore().getExterieur();
             urlStat = game.getStatistics_feed_url();
@@ -128,7 +124,7 @@ public class Game {
             logoHome= BitmapFactory.decodeStream(in);
 
             InputStream in2=new java.net.URL(urlAwayLogo).openStream();
-            logoAway= BitmapFactory.decodeStream(in);
+            logoAway= BitmapFactory.decodeStream(in2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,16 +142,22 @@ public class Game {
         switch(game.getStatut().getType())
         {
             case "avenir" :
-                statut = COMING;
+                statut = Statut.COMING;
                 break;
             case "termine" :
-                statut = FINISHED;
+                statut = Statut.FINISHED;
                 break;
             case "encours" :
-                statut = RUNNING;
+                statut = Statut.RUNNING;
                 break;
             case "mi-temps" :
-                statut = HALF_TIME;
+                statut = Statut.HALF_TIME;
+                break;
+            case "reporte" :
+                statut = Statut.POSTPONED;
+                break;
+            case "annule" :
+                statut = Statut.CANCELED;
                 break;
             default :
                 statut = null;
@@ -163,7 +165,7 @@ public class Game {
         }
 
         //Score if game is running, finished or half-time
-        if(statut.equals(RUNNING) || statut.equals(FINISHED)) {
+        if(statut.equals(Statut.RUNNING) || statut.equals(Statut.FINISHED)) {
             homeScore = game.getSpecifics().getScore().getDomicile();
             awayScore = game.getSpecifics().getScore().getExterieur();
             urlStat = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V2/Football/MatchStats/09/" + id + ".json;";
@@ -184,7 +186,7 @@ public class Game {
             logoHome= BitmapFactory.decodeStream(in);
 
             InputStream in2=new java.net.URL(urlAwayLogo).openStream();
-            logoAway= BitmapFactory.decodeStream(in);
+            logoAway= BitmapFactory.decodeStream(in2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -330,7 +332,7 @@ public class Game {
      *
      * @return statut
      */
-    public Statut getStatut() {
+    public String getStatut() {
         return statut;
     }
 

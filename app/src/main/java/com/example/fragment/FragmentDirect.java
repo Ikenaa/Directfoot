@@ -24,7 +24,7 @@ import com.example.BackEnd.LiveGames;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FragmentAccueil extends Fragment {
+public class FragmentDirect extends Fragment {
 
     View view;
     TextView team;

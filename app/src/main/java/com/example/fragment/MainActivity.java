@@ -11,31 +11,36 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
-    FragmentAccueil fragment1;
-    FragmentClassement fragment2;
+    FragmentHome fragment1;
 
-    Button AccueilFragmentBtn, ClassementFragmentBtn, SearchFragmentBtn;
+    Button AccueilFragmentBtn, ClassementFragmentBtn, SearchFragmentBtn, DirectFragmentButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity main = this;
+
+        MainActivity mainActivity = this;
+
         setContentView(R.layout.activity_main);
 
-        fragment1 = new FragmentAccueil();
+        fragment1 = new FragmentHome(mainActivity);
         fragment1.setFragmentActivity(this);
 
         replaceFragment(fragment1);
 
-        AccueilFragmentBtn = findViewById(R.id.direct);
+        AccueilFragmentBtn = findViewById(R.id.accueil);
 
         ClassementFragmentBtn = findViewById(R.id.classement);
 
         SearchFragmentBtn = findViewById(R.id.search);
+
+        DirectFragmentButton = findViewById(R.id.direct);
+
+
         AccueilFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment1 = new FragmentAccueil();
-                fragment1.setFragmentActivity(main);
+                fragment1 = new FragmentHome(mainActivity);
+                fragment1.setFragmentActivity(mainActivity);
 
 
                 replaceFragment(fragment1);
@@ -48,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                replaceFragment(new FragmentClassement());
+                replaceFragment(new FragmentTableHome(mainActivity));
 
             }
         });
@@ -59,6 +64,16 @@ public class MainActivity extends AppCompatActivity{
 
 
                 replaceFragment(new FragmentRecherche());
+
+            }
+        });
+
+        DirectFragmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                replaceFragment(new FragmentDirect());
 
             }
         });
@@ -76,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

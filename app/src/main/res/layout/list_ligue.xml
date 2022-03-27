@@ -41,10 +41,7 @@
                     android:contentDescription="@string/logo_ligue"
                     android:maxHeight="125dp"
                     android:scaleType="fitCenter"
-
-                    app:srcCompat="@drawable/logo_ligue1"
-
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    app:srcCompat="@drawable/logo_ligue1" />
 
             </LinearLayout>
 
