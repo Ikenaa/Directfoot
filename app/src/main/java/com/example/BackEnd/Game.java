@@ -175,7 +175,7 @@ public class Game {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         hour = sdf.format(game.getDate());
         SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE dd MMMM");
-        date = sdf2.format(game.getDate()).substring(0, 1).toUpperCase() + sdf2.format(game.getDate()).substring(1);;
+        date = sdf2.format(game.getDate()).substring(0, 1).toUpperCase() + sdf2.format(game.getDate()).substring(1);
 
         urlHomeLogo = game.getSpecifics().getDomicile().getEquipe().getUrl_image();
         urlAwayLogo = game.getSpecifics().getExterieur().getEquipe().getUrl_image();

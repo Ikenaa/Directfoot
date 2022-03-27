@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.BackEnd.JsonModel.TableJsonModel;
@@ -26,8 +28,10 @@ public class Table extends AsyncTask<Void, Void, Void> {
     private LayoutInflater inflater;
     private LinearLayout leftSideTable;
     private LinearLayout rightSideTable;
+    private RelativeLayout layoutTable;
 
     private String championship;
+    private View progressBar;
 
 
 
@@ -42,6 +46,19 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+        layoutTable = view.findViewById(R.id.layoutTable);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        params.setMargins(0, 800, 0, 0);
+
+        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutTable)),false);
+
+        layoutTable.addView(progressBar, params);
+
         String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/ClassementsBase/current/" + championship + "/general.json";
 
 
@@ -68,6 +85,7 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void unused) {
+        layoutTable.removeView(progressBar);
         Integer i= 1;
         for(Team team : tableTeams)
         {

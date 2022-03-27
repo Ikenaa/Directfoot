@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -44,13 +45,14 @@ public class FragmentDirect extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         view = inflater.inflate(R.layout.fragment_accueil, container, false);
         LinearLayout competFav = view.findViewById(R.id.compet);
+        View progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.compet)),false);
+
 
 
         try {
-            LiveGames lg = new LiveGames(view, inflater, competFav, currentActivity);
+            LiveGames lg = new LiveGames(view, inflater, competFav, currentActivity, progressBar);
             lg.execute();
         } catch (IOException e) {
             e.printStackTrace();

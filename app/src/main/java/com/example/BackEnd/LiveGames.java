@@ -51,6 +51,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private View view;
     private LayoutInflater layoutInflater;
     private LinearLayout competFav;
+    private View progressBar;
 
 
     private ArrayList<Game> franceGames;
@@ -67,8 +68,9 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
      *
      * @throws IOException
      */
-    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, MainActivity currentActivity) throws IOException {
+    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, MainActivity currentActivity, View progressBar) throws IOException {
 
+        this.progressBar = progressBar;
         this.view = view;
         this.competFav = competFav;
         this.layoutInflater = layoutInflater;
@@ -82,12 +84,26 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected Void doInBackground(Void... voids) {
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        params.setMargins(0, 800, 0, 0);
+
+
+        competFav.addView(progressBar, params);
+
         //we need the todays' date in a particular format in the url of the api
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDateTime today = LocalDateTime.now();
 
         //String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/" + dtf.format(today) + ".json";
         String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V3/Lives/20220320.json";
+
+
+
 
 
 
@@ -137,6 +153,8 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void voids) {
+
+        competFav.removeView(progressBar);
         if(isAFootballDay())
         {
             if(isAFranceChampionshipDay())

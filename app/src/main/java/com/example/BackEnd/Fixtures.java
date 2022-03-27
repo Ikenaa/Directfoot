@@ -36,6 +36,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
     private LinearLayout layoutFixtures;
     private LayoutInflater inflater;
     private String day;
+    private View progressBar;
 
     public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutFixtures) throws IOException {
         this.layoutFixtures = layoutFixtures;
@@ -49,6 +50,18 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+        layoutFixtures = view.findViewById(R.id.layoutFixtures);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        params.setMargins(0, 500, 0, 0);
+
+        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutFixtures)),false);
+
+        layoutFixtures.addView(progressBar, params);
             try {
                 if(day == null) {
                     String urlString2 = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/container.json";
@@ -100,6 +113,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void voids) {
+        layoutFixtures.removeView(progressBar);
         Spinner spinner = view.findViewById(R.id.spinner);
 
 
