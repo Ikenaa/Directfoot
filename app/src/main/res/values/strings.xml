@@ -18,8 +18,8 @@
     <string name="date">Date</string>
     <string name="team_2">Team 2</string>
     <string name="statut">Terminé</string>
-    <string name="score_1">Score</string>
-    <string name="score_2">Score</string>
+    <string name="score_1">-</string>
+    <string name="score_2">-</string>
     <string name="imageequipe">imageEquipe</string>
 
     <string name="equipe_title">Equipes</string>
