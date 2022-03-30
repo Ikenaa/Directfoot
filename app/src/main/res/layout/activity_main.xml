@@ -28,21 +28,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/accueil"
-            style="?android:attr/buttonBarButtonStyle"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-
-            android:layout_weight="1"
-
-            android:drawableTop="@android:drawable/btn_star"
-
-            android:text="@string/accueil"
-            android:textColor="@color/white"
-            android:textSize="11sp" />
-        <Button
             android:id="@+id/direct"
             style="?android:attr/buttonBarButtonStyle"
 
@@ -54,6 +39,22 @@
 
             android:drawableTop="@drawable/ball"
             android:text="@string/direct"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/accueil"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:layout_weight="1"
+
+            android:drawableTop="@android:drawable/btn_star"
+
+            android:text="@string/ligue"
             android:textColor="@color/white"
             android:textSize="11sp" />
 
