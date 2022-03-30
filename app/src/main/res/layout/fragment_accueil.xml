@@ -22,7 +22,8 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/daysPast7"
+                    android:tag="day1"
+                    android:id="@+id/day1"
                     android:textColor="@color/white"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
                     android:text="@string/daysPast7" />
 
                 <Button
-                    android:id="@+id/daysPast6"
+                    android:tag="day2"
+                    android:id="@+id/day2"
                     android:textColor="@color/white"
 
                     style="?android:attr/buttonBarButtonStyle"
@@ -41,7 +43,8 @@
                     android:text="@string/daysPast6" />
 
                 <Button
-                    android:id="@+id/daysPast5"
+                    android:tag="day3"
+                    android:id="@+id/day3"
                     android:textColor="@color/white"
 
                     style="?android:attr/buttonBarButtonStyle"
@@ -51,7 +54,8 @@
                     android:text="@string/daysPast5" />
 
                 <Button
-                    android:id="@+id/daysPast4"
+                    android:tag="day4"
+                    android:id="@+id/day4"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -61,7 +65,8 @@
                     android:text="@string/daysPast4" />
 
                 <Button
-                    android:id="@+id/daysPast3"
+                    android:tag="day5"
+                    android:id="@+id/day5"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -71,7 +76,8 @@
                     android:text="@string/daysPast3" />
 
                 <Button
-                    android:id="@+id/daysPast2"
+                    android:tag="day6"
+                    android:id="@+id/day6"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -81,7 +87,8 @@
                     android:text="@string/daysPast2" />
 
                 <Button
-                    android:id="@+id/daysPast1"
+                    android:tag="day7"
+                    android:id="@+id/day7"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -91,7 +98,8 @@
                     android:text="@string/daysPast1" />
 
                 <Button
-                    android:id="@+id/today"
+                    android:tag="day8"
+                    android:id="@+id/day8"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -101,7 +109,8 @@
                     android:text="@string/today" />
 
                 <Button
-                    android:id="@+id/daysPlus1"
+                    android:tag="day9"
+                    android:id="@+id/day9"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -111,7 +120,8 @@
                     android:text="@string/daysPlus1" />
 
                 <Button
-                    android:id="@+id/daysPlus2"
+                    android:tag="day10"
+                    android:id="@+id/day10"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -121,7 +131,8 @@
                     android:text="@string/daysPlus2" />
 
                 <Button
-                    android:id="@+id/daysPlus3"
+                    android:tag="day11"
+                    android:id="@+id/day11"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -131,7 +142,8 @@
                     android:text="@string/daysPlus3" />
 
                 <Button
-                    android:id="@+id/daysPlus4"
+                    android:tag="day12"
+                    android:id="@+id/day12"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -141,7 +153,8 @@
                     android:text="@string/daysPlus4" />
 
                 <Button
-                    android:id="@+id/daysPlus5"
+                    android:tag="day13"
+                    android:id="@+id/day13"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -151,7 +164,8 @@
                     android:text="@string/daysPlus5" />
 
                 <Button
-                    android:id="@+id/daysPlus6"
+                    android:tag="day14"
+                    android:id="@+id/day14"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 
@@ -161,7 +175,8 @@
                     android:text="@string/daysPlus6" />
 
                 <Button
-                    android:id="@+id/daysPlus7"
+                    android:tag="day15"
+                    android:id="@+id/day15"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="@color/white"
 

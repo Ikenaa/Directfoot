@@ -33,7 +33,7 @@ public class FragmentFixtures extends Fragment {
         view = inflater.inflate(R.layout.fragment_fixtures, container, false);
         LinearLayout layoutFixtures = view.findViewById(R.id.layoutFixtures);
         try {
-            Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures);
+            Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, "29");
             fixtures.execute();
         } catch (IOException e) {
             e.printStackTrace();

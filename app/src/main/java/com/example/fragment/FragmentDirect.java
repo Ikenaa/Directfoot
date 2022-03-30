@@ -26,13 +26,20 @@ import com.example.BackEnd.Game;
 import com.example.BackEnd.LiveGames;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class FragmentDirect extends Fragment {
 
-    View view;
-    TextView team;
+
+
+    private View view;
+    private TextView team;
     private MainActivity currentActivity;
+    private Date dateObj;
 
     public FragmentDirect(MainActivity mainActivity) {
         super();
@@ -50,9 +57,49 @@ public class FragmentDirect extends Fragment {
         View progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.compet)),false);
 
 
+        SimpleDateFormat dtf = new SimpleDateFormat("EEE dd/MM", new Locale("FR", "fr"));
+        SimpleDateFormat dtf2 = new SimpleDateFormat("yyyyMMdd", new Locale("FR", "fr"));
+        Calendar calendar = Calendar.getInstance();
+        Button day;
+        calendar.add(Calendar.DATE, -8);
+        String formattedDateButton;
+        LiveGames lg;
+
+        for(Integer i = 1; i <=15; i++)
+        {
+            day = (Button) view.findViewWithTag("day" + i.toString());
+            calendar.add(Calendar.DATE, +1);
+            dateObj = calendar.getTime();
+            if(i!=8) {
+
+                formattedDateButton = dtf.format(dateObj);
+            }
+            else
+            {
+                formattedDateButton = "AUJOURD'HUI";
+            }
+
+            day.setText(formattedDateButton);
+            String t = dtf2.format(dateObj);
+
+            day.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+
+                        LiveGames lg = new LiveGames(FragmentDirect.super.getView(), inflater, competFav, currentActivity, progressBar, t);
+                        lg.execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }
+
 
         try {
-            LiveGames lg = new LiveGames(view, inflater, competFav, currentActivity, progressBar);
+            lg = new LiveGames(view, inflater, competFav, currentActivity, progressBar, null);
             lg.execute();
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +112,7 @@ public class FragmentDirect extends Fragment {
             @Override
             public void run() {
                 // Get the button.
-                View button = view.findViewById(R.id.daysPlus4);
+                View button = view.findViewById(R.id.day12);
 
                 // Locate the button.
                 int x, y;
@@ -80,4 +127,9 @@ public class FragmentDirect extends Fragment {
         return view;
     }
 
+    @Nullable
+    @Override
+    public View getView() {
+        return view;
+    }
 }
