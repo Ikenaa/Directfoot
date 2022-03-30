@@ -16,9 +16,14 @@ import java.io.IOException;
 
 public class FragmentFixtures extends Fragment {
 
+
+
     private View viewGeneral;
     private AppCompatActivity currentActivity;
     private String championship;
+    private LayoutInflater inflater;
+    private LinearLayout layoutGeneral;
+    private Spinner spinner;
 
     public FragmentFixtures(AppCompatActivity currentActivity, String championship)
     {
@@ -29,15 +34,16 @@ public class FragmentFixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.inflater = inflater;
         viewGeneral = inflater.inflate(R.layout.fragment_fixtures, container, false);
-        LinearLayout layoutGeneral = viewGeneral.findViewById(R.id.layoutGeneral);
+        layoutGeneral = viewGeneral.findViewById(R.id.layoutGeneral);
         Button tableButton = viewGeneral.findViewById(R.id.tableButton);
         Button fixturesButton = viewGeneral.findViewById(R.id.fixturesButton);
         View viewTable = inflater.inflate(R.layout.fragment_classement_ligue, layoutGeneral, false);
 
         View spinnerView = inflater.inflate(R.layout.spinner, viewGeneral.findViewById(R.id.underButtons), false );
         LinearLayout underButton = viewGeneral.findViewById(R.id.underButtons);
-        Spinner spinner = spinnerView.findViewById(R.id.spinner);
+        spinner = spinnerView.findViewById(R.id.spinner);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0, 30, 0, 30);
         currentActivity.runOnUiThread(new Runnable() {
@@ -68,7 +74,7 @@ public class FragmentFixtures extends Fragment {
         });
 
         try {
-            Fixtures fixtures = new Fixtures(championship, viewGeneral, currentActivity, inflater, layoutGeneral, null, true, spinner);
+            Fixtures fixtures = new Fixtures(this, null, true);
             fixtures.execute();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +83,34 @@ public class FragmentFixtures extends Fragment {
 
         return viewGeneral;
     }
+
+    public String getChampionship() {
+        return championship;
+    }
+
+    public View getViewGeneral() {
+        return viewGeneral;
+    }
+
+    public AppCompatActivity getCurrentActivity() {
+        return currentActivity;
+    }
+
+
+    public LayoutInflater getInflater() {
+        return inflater;
+    }
+
+    public LinearLayout getLayoutGeneral() {
+        return layoutGeneral;
+    }
+
+    public Spinner getSpinner() {
+        return spinner;
+    }
+
+
+
 
     public void setFragmentActivity(AppCompatActivity activity){
         this.currentActivity = activity;
