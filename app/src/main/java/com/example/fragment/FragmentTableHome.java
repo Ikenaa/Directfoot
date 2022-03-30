@@ -1,3 +1,4 @@
+/*
 package com.example.fragment;
 
 import android.os.Bundle;
@@ -90,3 +91,4 @@ public class FragmentTableHome extends Fragment {
         this.currentActivity = activity;
     }
 }
+*/

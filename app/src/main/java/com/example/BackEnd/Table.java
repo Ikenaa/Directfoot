@@ -1,16 +1,16 @@
 package com.example.BackEnd;
 
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.BackEnd.JsonModel.TableJsonModel;
+import com.example.fragment.MainActivity;
 import com.example.fragment.R;
 import com.google.gson.Gson;
 
@@ -24,30 +24,36 @@ import java.util.*;
 public class Table extends AsyncTask<Void, Void, Void> {
 
     private ArrayList<Team> tableTeams;
-    private View view;
-    private LayoutInflater inflater;
-    private LinearLayout leftSideTable;
-    private LinearLayout rightSideTable;
-    private RelativeLayout layoutTable;
-
     private String championship;
     private View progressBar;
+    private View viewGeneral;
+    private LayoutInflater inflater;
+    private MainActivity currentActivity;
+    private LinearLayout layoutGeneral;
+    private View viewTable;
+    private View spinnerView;
+    private LinearLayout underButton;
 
 
 
-    public Table(String championship, View view, LayoutInflater inflater, LinearLayout leftSideTable, LinearLayout rightSideTable) throws Exception {
-        tableTeams = new ArrayList<>();
+
+    public Table(String championship, LayoutInflater inflater, View viewGeneral, MainActivity currentActivity, LinearLayout layoutGeneral, View viewTable, LinearLayout underButton, View spinnerView) throws Exception {
+
+        this.spinnerView = spinnerView;
+        this.underButton = underButton;
+        this.layoutGeneral = layoutGeneral;
+        this.viewTable = viewTable;
+        this.currentActivity = currentActivity;
+        this.viewGeneral = viewGeneral;
         this.inflater = inflater;
-        this.leftSideTable = leftSideTable;
-        this.rightSideTable = rightSideTable;
-        this.view = view;
         this.championship = championship;
+        tableTeams = new ArrayList<>();
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
 
-        layoutTable = view.findViewById(R.id.layoutTable);
+        //View layoutTable =  inflater.inflate(R.layout.fragment_classement_ligue,view.findViewById((R.id.layoutGeneral)),false);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -55,9 +61,17 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
         params.setMargins(0, 800, 0, 0);
 
-        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutTable)),false);
+        progressBar = inflater.inflate(R.layout.loading, viewGeneral.findViewById((R.id.layoutGeneral)),false);
 
-        layoutTable.addView(progressBar, params);
+        currentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                underButton.removeView(spinnerView);
+                layoutGeneral.removeAllViews();
+                layoutGeneral.addView(progressBar, params);
+            }
+        });
+
 
         String urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/ClassementsBase/current/" + championship + "/general.json";
 
@@ -85,43 +99,55 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void unused) {
-        layoutTable.removeView(progressBar);
-        Integer i= 1;
-        for(Team team : tableTeams)
-        {
-            View leftSide = inflater.inflate(R.layout.left_side_table, view.findViewById(R.id.layoutLeftSide), false);
-            ((TextView) leftSide.findViewById(R.id.rank)).setText(i.toString());
-            ((TextView) leftSide.findViewById(R.id.teamName)).setText(team.getTeamName());
-            ((ImageView) leftSide.findViewById(R.id.logo)).setImageBitmap(team.getLogo());
-            leftSideTable.addView(leftSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+        currentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                layoutGeneral.removeView(progressBar);
+                LinearLayout leftSideTable = viewTable.findViewById(R.id.layoutLeftSide);
+                LinearLayout rightSideTable = viewTable.findViewById(R.id.layoutRightSide);
+
+                Integer i= 1;
+                for(Team team : tableTeams)
+                {
+                    View leftSide = inflater.inflate(R.layout.left_side_table, viewGeneral.findViewById(R.id.layoutLeftSide), false);
+                    ((TextView) leftSide.findViewById(R.id.rank)).setText(i.toString());
+                    ((TextView) leftSide.findViewById(R.id.teamName)).setText(team.getTeamName());
+                    ((ImageView) leftSide.findViewById(R.id.logo)).setImageBitmap(team.getLogo());
+                    leftSideTable.addView(leftSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
 
 
-/*
-            View rightSide = inflater.inflate(R.layout.right_side_table, view.findViewById(R.id.layoutRightSide), false);
-            ((TextView) rightSide.findViewById(R.id.points)).setText("32");
-            ((TextView) rightSide.findViewById(R.id.played)).setText("11");
-            ((TextView) rightSide.findViewById(R.id.win)).setText("12");
-            ((TextView) rightSide.findViewById(R.id.draw)).setText("13");
-            ((TextView) rightSide.findViewById(R.id.lose)).setText("14");
-            ((TextView) rightSide.findViewById(R.id.goalsFor)).setText("15");
-            ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText("16");
-            ((TextView) rightSide.findViewById(R.id.goalDiff)).setText("17");
-            rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
-*/
+    /*
+                View rightSide = inflater.inflate(R.layout.right_side_table, view.findViewById(R.id.layoutRightSide), false);
+                ((TextView) rightSide.findViewById(R.id.points)).setText("32");
+                ((TextView) rightSide.findViewById(R.id.played)).setText("11");
+                ((TextView) rightSide.findViewById(R.id.win)).setText("12");
+                ((TextView) rightSide.findViewById(R.id.draw)).setText("13");
+                ((TextView) rightSide.findViewById(R.id.lose)).setText("14");
+                ((TextView) rightSide.findViewById(R.id.goalsFor)).setText("15");
+                ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText("16");
+                ((TextView) rightSide.findViewById(R.id.goalDiff)).setText("17");
+                rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+    */
 
-            View rightSide = inflater.inflate(R.layout.right_side_table, view.findViewById(R.id.layoutRightSide), false);
-            ((TextView) rightSide.findViewById(R.id.points)).setText(String.valueOf(team.getPoints()));
-            ((TextView) rightSide.findViewById(R.id.played)).setText(String.valueOf(team.getPlayedNumber()));
-            ((TextView) rightSide.findViewById(R.id.win)).setText(String.valueOf(team.getWinNumber()));
-            ((TextView) rightSide.findViewById(R.id.draw)).setText(String.valueOf(team.getDrawNumber()));
-            ((TextView) rightSide.findViewById(R.id.lose)).setText(String.valueOf(team.getLoseNumber()));
-            ((TextView) rightSide.findViewById(R.id.goalsFor)).setText(String.valueOf(team.getGoalsFor()));
-            ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText(String.valueOf(team.getGoalsAgainst()));
-            ((TextView) rightSide.findViewById(R.id.goalDiff)).setText(String.valueOf(team.getGoalDifference()));
-            rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                    View rightSide = inflater.inflate(R.layout.right_side_table, viewGeneral.findViewById(R.id.layoutRightSide), false);
+                    ((TextView) rightSide.findViewById(R.id.points)).setText(String.valueOf(team.getPoints()));
+                    ((TextView) rightSide.findViewById(R.id.played)).setText(String.valueOf(team.getPlayedNumber()));
+                    ((TextView) rightSide.findViewById(R.id.win)).setText(String.valueOf(team.getWinNumber()));
+                    ((TextView) rightSide.findViewById(R.id.draw)).setText(String.valueOf(team.getDrawNumber()));
+                    ((TextView) rightSide.findViewById(R.id.lose)).setText(String.valueOf(team.getLoseNumber()));
+                    ((TextView) rightSide.findViewById(R.id.goalsFor)).setText(String.valueOf(team.getGoalsFor()));
+                    ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText(String.valueOf(team.getGoalsAgainst()));
+                    ((TextView) rightSide.findViewById(R.id.goalDiff)).setText(String.valueOf(team.getGoalDifference()));
+                    rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
 
-            i+=1;
-        }
+                    i+=1;
+                }
+                RelativeLayout layoutTable = viewTable.findViewById(R.id.layoutTable);
+                layoutGeneral.addView((View) layoutTable);
+            }
+        });
+
     }
 
     public ArrayList<Team> getTableTeams() {

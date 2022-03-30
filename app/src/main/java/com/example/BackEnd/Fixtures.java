@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,13 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.BackEnd.JsonModel.CurrentDayJsonModel;
 import com.example.BackEnd.JsonModel.FixturesJsonModel;
+import com.example.fragment.FragmentMatch;
+import com.example.fragment.MainActivity;
 import com.example.fragment.R;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
     private View view;
     private AppCompatActivity currentActivity;
     private Integer nbFixtures;
-    private LinearLayout layoutFixtures;
+    private LinearLayout layoutGeneral;
     private LayoutInflater inflater;
     private String day;
     private View progressBar;
@@ -41,8 +41,8 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
     private boolean refreshSpinner;
     private Spinner spinner;
 
-    public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutFixtures, String day, boolean refreshSpinner, Spinner spinner) throws IOException {
-        this.layoutFixtures = layoutFixtures;
+    public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutGeneral, String day, boolean refreshSpinner, Spinner spinner) throws IOException {
+        this.layoutGeneral = layoutGeneral;
         this.inflater = inflater;
         this.currentActivity = currentActivity;
         this.view = view;
@@ -64,13 +64,13 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
 
         params.setMargins(0, 500, 0, 0);
 
-        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutFixtures)),false);
+        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutGeneral)),false);
 
         currentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                layoutFixtures.removeAllViews();
-                layoutFixtures.addView(progressBar, params);
+                layoutGeneral.removeAllViews();
+                layoutGeneral.addView(progressBar, params);
             }
         });
 
@@ -113,7 +113,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                     if(item.get__type().equals("calendar_widget_list"))
                     {
                         for (FixturesJsonModel.Item itemBis : item.getItems()) {
-                            fixturesGame.add(new Game(itemBis.getEvent()));
+                            fixturesGame.add(new Game(itemBis.getEvent(), championship, (MainActivity) currentActivity));
                         }
                     }
                 }
@@ -133,7 +133,8 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
         currentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                layoutFixtures.removeView(progressBar);
+                layoutGeneral.removeView(progressBar);
+
                 if(refreshSpinner) {
 
 
@@ -158,7 +159,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                                 day = day.substring(0, 1);
 
                             try {
-                                Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, day, false, spinner);
+                                Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutGeneral, day, false, spinner);
                                 fixtures.execute();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -173,10 +174,16 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                 }
                 else
                 {
+                    String date = "null";
                     for(Game game : fixturesGame)
                     {
+                        if(!date.equals(game.getDate())) {
+                            View titre_ligue = inflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                            ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText(game.getDate());
+                            layoutGeneral.addView(titre_ligue);
+                            date = game.getDate();
+                        }
                         View truc =  inflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-
                         ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                         ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                         ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -196,7 +203,14 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                             ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
                         }
 
-                        layoutFixtures.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                        truc.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                            }
+                        });
+
+                        layoutGeneral.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
                     }
                 }
 

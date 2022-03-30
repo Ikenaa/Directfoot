@@ -1,3 +1,4 @@
+/*
 package com.example.fragment;
 
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class FragmentTable extends Fragment {
 
 
         LinearLayout leftSideTable = view.findViewById(R.id.layoutLeftSide);
-        LinearLayout rightSideTable = view.findViewById((R.id.layoutRightSide));
+        LinearLayout rightSideTable = view.findViewById(R.id.layoutRightSide);
 
 
 
@@ -51,4 +52,4 @@ public class FragmentTable extends Fragment {
     public void setFragmentActivity(AppCompatActivity activity){
         this.currentActivity = activity;
     }
-}
+}*/

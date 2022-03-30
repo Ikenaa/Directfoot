@@ -10,10 +10,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 import com.example.BackEnd.GameEvent.CardEvent;
 import com.example.BackEnd.GameEvent.GameEvent;
@@ -22,14 +24,22 @@ import com.example.BackEnd.JsonModel.FixturesJsonModel;
 import com.example.BackEnd.JsonModel.GameEventJsonModel;
 import com.example.BackEnd.JsonModel.GameStatJsonModel;
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel.*;
+import com.example.fragment.MainActivity;
+import com.example.fragment.R;
 import com.google.gson.Gson;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 /**
  * Declaration of class Game
  */
-public class Game {
+public class Game extends AsyncTask<Void, Void, Void> {
 
     private String id;
     private String homeTeamName;
@@ -60,21 +70,22 @@ public class Game {
     private String awayRedCard;
     private String homeOffSide;
     private String awayOffSide;
+    private String championship;
     private ArrayList<GameEvent> gameEvents;
     private Bitmap logoHome,logoAway;
-
-    /**
-     * Declaration of enum Statut
-     */
+    private View view;
+    private MainActivity currentActivity;
+    private LayoutInflater inflater;
 
 
     /**
      * Constructor of Game
      * @param game
      */
-    public Game(Objet game)
+    public Game(Objet game, String championship, MainActivity currentActivity)
     {
-
+        this.currentActivity = currentActivity;
+        this.championship = championship;
         id = game.getId();
         //Teams name
         homeTeamName = game.getSpecifics().getDomicile().getEquipe().getNom();
@@ -116,6 +127,9 @@ public class Game {
         //Date
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         hour = sdf.format(game.getDate());
+        SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE dd MMMM", new Locale("FR", "fr"));
+        date = sdf2.format(game.getDate()).substring(0, 1).toUpperCase() + sdf2.format(game.getDate()).substring(1);
+
         urlHomeLogo = game.getSpecifics().getDomicile().getEquipe().getUrl_image();
         urlAwayLogo = game.getSpecifics().getExterieur().getEquipe().getUrl_image();
 
@@ -131,8 +145,10 @@ public class Game {
 
     }
 
-    public Game(FixturesJsonModel.Event game)
+    public Game(FixturesJsonModel.Event game, String championship, MainActivity currentActivity)
     {
+        this.currentActivity = currentActivity;
+        this.championship = championship;
         id = game.getLien_web().substring(game.getLien_web().length()-6);
         //Teams name
         homeTeamName = game.getSpecifics().getDomicile().getEquipe().getNom();
@@ -168,13 +184,13 @@ public class Game {
         if(statut.equals(Statut.RUNNING) || statut.equals(Statut.FINISHED)) {
             homeScore = game.getSpecifics().getScore().getDomicile();
             awayScore = game.getSpecifics().getScore().getExterieur();
-            urlStat = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V2/Football/MatchStats/09/" + id + ".json;";
+            urlStat = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V2/Football/MatchStats/" +id.substring(id.length() -2)+ "/"+ id + ".json";
         }
 
         //Date
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         hour = sdf.format(game.getDate());
-        SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE dd MMMM");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE dd MMMM", new Locale("FR", "fr"));
         date = sdf2.format(game.getDate()).substring(0, 1).toUpperCase() + sdf2.format(game.getDate()).substring(1);
 
         urlHomeLogo = game.getSpecifics().getDomicile().getEquipe().getUrl_image();
@@ -192,11 +208,21 @@ public class Game {
         }
     }
 
-    public void generateStat() throws IOException {
-        //read the answer of the api
-        URL url = new URL(urlStat);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
-        String jsonString = bufferedReader.readLine();
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        String jsonString = null;
+        try {
+            //read the answer of the api
+            URL url = new URL(urlStat);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+            jsonString = bufferedReader.readLine();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         //Create an objet with this answer
         GameStatJsonModel.Root jsonObject = new Gson().fromJson(jsonString, GameStatJsonModel.Root.class);
@@ -245,6 +271,53 @@ public class Game {
 
             }
         }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void voids)
+    {
+        currentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView)view.findViewById(R.id.homeScore)).setText(getHomeScore());
+                ((TextView)view.findViewById(R.id.awayScore)).setText(getAwayScore());
+                View botLayout = inflater.inflate(R.layout.statistique_match_bot,view.findViewById((R.id.statLayoutGeneral)),false);
+                ((TextView)botLayout.findViewById(R.id.homeShots)).setText(getHomeShots());
+                ((TextView)botLayout.findViewById(R.id.awayShots)).setText(getAwayShots());
+                ((TextView)botLayout.findViewById(R.id.homeOffSide)).setText(getHomeOffSide());
+                ((TextView)botLayout.findViewById(R.id.awayOffSide)).setText(getAwayOffSide());
+                ((TextView)botLayout.findViewById(R.id.homePass)).setText(getHomePass());
+                ((TextView)botLayout.findViewById(R.id.awayPass)).setText(getAwayPass());
+                ((TextView)botLayout.findViewById(R.id.homeFault)).setText(getHomeFaults());
+                ((TextView)botLayout.findViewById(R.id.awayFault)).setText(getAwayFaults());
+                ((TextView)botLayout.findViewById(R.id.homePassPrecision)).setText(getHomePassPrecision());
+                ((TextView)botLayout.findViewById(R.id.awayPassPrecision)).setText(getAwayPassPrecision());
+                ((TextView)botLayout.findViewById(R.id.homePossession)).setText(getHomePossession());
+                ((TextView)botLayout.findViewById(R.id.awayPossession)).setText(getAwayPossession());
+                ((TextView)botLayout.findViewById(R.id.homeYellowCard)).setText(getHomeYellowCard());
+                ((TextView)botLayout.findViewById(R.id.awayYellowCard)).setText(getAwayYellowCard());
+                ((TextView)botLayout.findViewById(R.id.homeShotsOnTarget)).setText(getHomeShotsOnTarget());
+                ((TextView)botLayout.findViewById(R.id.awayShotsOnTarget)).setText(getAwayShotsOnTarget());
+
+                if(getHomeRedCard() == null)
+                    ((TextView)botLayout.findViewById(R.id.homeRedCard)).setText("0");
+                else
+                    ((TextView)botLayout.findViewById(R.id.homeRedCard)).setText(getHomeRedCard());
+                if(getAwayRedCard() == null)
+                    ((TextView)botLayout.findViewById(R.id.awayRedCard)).setText("0");
+                else
+                    ((TextView)botLayout.findViewById(R.id.awayRedCard)).setText(getAwayRedCard());
+
+                LinearLayout generalLayout = view.findViewById(R.id.statLayoutGeneral);
+                generalLayout.addView(botLayout);
+            }
+        });
+
+
+    }
+    public void generateStat() throws IOException {
+
     }
 
     public void generateEvent() throws IOException {
@@ -372,5 +445,91 @@ public class Game {
         return logoAway;
     }
 
+    public String getChampionship() {
+        return championship;
+    }
+
+
+    public String getHomeShots() {
+        return homeShots;
+    }
+
+    public String getAwayShots() {
+        return awayShots;
+    }
+
+    public String getHomeShotsOnTarget() {
+        return homeShotsOnTarget;
+    }
+
+    public String getAwayShotsOnTarget() {
+        return awayShotsOnTarget;
+    }
+
+    public String getHomePossession() {
+        return homePossession;
+    }
+
+    public String getAwayPossession() {
+        return awayPossession;
+    }
+
+    public String getHomePass() {
+        return homePass;
+    }
+
+    public String getAwayPass() {
+        return awayPass;
+    }
+
+    public String getHomePassPrecision() {
+        return homePassPrecision;
+    }
+
+    public String getAwayPassPrecision() {
+        return awayPassPrecision;
+    }
+
+    public String getHomeFaults() {
+        return homeFaults;
+    }
+
+    public String getAwayFaults() {
+        return awayFaults;
+    }
+
+    public String getHomeYellowCard() {
+        return homeYellowCard;
+    }
+
+    public String getAwayYellowCard() {
+        return awayYellowCard;
+    }
+
+    public String getHomeRedCard() {
+        return homeRedCard;
+    }
+
+    public String getAwayRedCard() {
+        return awayRedCard;
+    }
+
+    public String getHomeOffSide() {
+        return homeOffSide;
+    }
+
+    public String getAwayOffSide() {
+        return awayOffSide;
+    }
+
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    public void setInflater(LayoutInflater inflater)
+    {
+        this.inflater = inflater;
+    }
 }
 

@@ -6,19 +6,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-
-import com.example.BackEnd.Championship;
 import com.example.BackEnd.Fixtures;
-
+import com.example.BackEnd.Table;
 import java.io.IOException;
 
 
 public class FragmentFixtures extends Fragment {
 
-    View view;
+    private View viewGeneral;
     private AppCompatActivity currentActivity;
     private String championship;
 
@@ -31,18 +29,53 @@ public class FragmentFixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_fixtures, container, false);
-        LinearLayout layoutFixtures = view.findViewById(R.id.layoutFixtures);
-        Spinner spinner = view.findViewById(R.id.spinner);
+        viewGeneral = inflater.inflate(R.layout.fragment_fixtures, container, false);
+        LinearLayout layoutGeneral = viewGeneral.findViewById(R.id.layoutGeneral);
+        Button tableButton = viewGeneral.findViewById(R.id.tableButton);
+        Button fixturesButton = viewGeneral.findViewById(R.id.fixturesButton);
+        View viewTable = inflater.inflate(R.layout.fragment_classement_ligue, layoutGeneral, false);
+
+        View spinnerView = inflater.inflate(R.layout.spinner, viewGeneral.findViewById(R.id.underButtons), false );
+        LinearLayout underButton = viewGeneral.findViewById(R.id.underButtons);
+        Spinner spinner = spinnerView.findViewById(R.id.spinner);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.setMargins(0, 30, 0, 30);
+        currentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                underButton.addView(spinnerView, layoutParams);
+            }
+        });
+
+
+        tableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Table table = new Table(championship, inflater, viewGeneral, (MainActivity) currentActivity, layoutGeneral, viewTable, underButton, spinnerView);
+                    table.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        fixturesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)currentActivity).replaceFragment(new FragmentFixtures(currentActivity, championship));
+            }
+        });
+
         try {
-            Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, null, true, spinner);
+            Fixtures fixtures = new Fixtures(championship, viewGeneral, currentActivity, inflater, layoutGeneral, null, true, spinner);
             fixtures.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        return view;
+        return viewGeneral;
     }
 
     public void setFragmentActivity(AppCompatActivity activity){

@@ -188,10 +188,8 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(View v) {
-                                    // ADD your action here
-                                    currentActivity.replaceFragment(new FragmentMatch(currentActivity));
-
+                                public void onClick(View view) {
+                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
                                 }
                             });
 
@@ -232,6 +230,12 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                         {
                             View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
 
+                            truc.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                }
+                            });
                             ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                             ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                             ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -267,7 +271,12 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                         for(Game game : germanyGames)
                         {
                             View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-
+                            truc.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                }
+                            });
                             ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                             ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                             ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -303,7 +312,12 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                         for(Game game : italyGames)
                         {
                             View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-
+                            truc.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                }
+                            });
                             ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                             ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                             ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -339,7 +353,12 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                         for(Game game : spainGames)
                         {
                             View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-
+                            truc.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                }
+                            });
                             ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                             ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                             ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -580,7 +599,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
         for(Item item : getChampionshipList().get(indexChampionship).getObjet().getItems())
         {
             if(item.getObjet().get__type().equalsIgnoreCase("rencontre_sport_collectif"))
-                gameArray.add(new Game(item.getObjet()));
+                gameArray.add(new Game(item.getObjet(), championship, currentActivity));
         }
         return gameArray;
     }

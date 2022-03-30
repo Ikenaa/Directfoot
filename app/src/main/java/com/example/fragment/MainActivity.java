@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        ClassementFragmentBtn.setOnClickListener(new View.OnClickListener() {
+       /* ClassementFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity{
                 replaceFragment(new FragmentTableHome(mainActivity));
 
             }
-        });
+        });*/
 
         SearchFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                replaceFragment(new FragmentMatch(mainActivity));
+                //replaceFragment(new FragmentMatch(mainActivity));
 
             }
         });

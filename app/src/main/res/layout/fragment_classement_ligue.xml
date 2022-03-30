@@ -15,14 +15,14 @@
 
 
     <ScrollView
-
+        android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/match_cmp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/layoutLeftSide"
@@ -77,87 +77,87 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/points"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/j"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/g"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/n"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/p"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
-                            android:textSize="17dp"
                             android:text="@string/bp"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
                             android:text="@string/bc"
-                            android:textSize="17dp"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                         <TextView
-                            android:layout_margin="2dp"
                             android:layout_width="35dp"
                             android:layout_height="33dp"
+                            android:layout_margin="2dp"
                             android:gravity="center"
-                            android:textSize="17dp"
                             android:text="@string/diff_but"
+                            android:textColor="@color/white"
 
-                            android:textColor="@color/white" />
+                            android:textSize="17dp" />
 
                     </LinearLayout>
 
