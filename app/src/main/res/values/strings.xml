@@ -1,15 +1,10 @@
 <resources>
     <string name="app_name">Direct Foot</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="strLogin">Login:</string>
-    <string name="strPassword">Password:</string>
-    <string name="strConnect">CONNECT</string>
 
     <string name="recherche">Recherche</string>
     <string name="parametres">Parametres</string>
-    <string name="accueil">Accueil</string>
-    <string name="direct">Direct</string>
+    <string name="ligue">Ligue</string>
+    <string name="direct">Matchs</string>
     <string name="favoris">Favoris</string>
     <string name="classement">Classement</string>
     <string name="search">search</string>
@@ -21,6 +16,7 @@
     <string name="score_1">-</string>
     <string name="score_2">-</string>
     <string name="imageequipe">imageEquipe</string>
+    <string name="logo_but">logo but</string>
 
     <string name="equipe_title">Equipes</string>
     <string name="rank_title">Rang</string>
