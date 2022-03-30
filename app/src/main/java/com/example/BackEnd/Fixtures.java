@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.BackEnd.JsonModel.CurrentDayJsonModel;
 import com.example.BackEnd.JsonModel.FixturesJsonModel;
+import com.example.fragment.FragmentFixtures;
 import com.example.fragment.FragmentMatch;
 import com.example.fragment.MainActivity;
 import com.example.fragment.R;
@@ -29,28 +30,18 @@ import java.util.ArrayList;
 public class Fixtures extends AsyncTask<Void, Void, Void> {
 
     private ArrayList<Game> fixturesGame;
-    private String championship;
-    private View view;
-    private AppCompatActivity currentActivity;
     private Integer nbFixtures;
-    private LinearLayout layoutGeneral;
-    private LayoutInflater inflater;
     private String day;
     private View progressBar;
     private String currentDay;
     private boolean refreshSpinner;
-    private Spinner spinner;
+    private FragmentFixtures fragmentFixtures;
 
-    public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutGeneral, String day, boolean refreshSpinner, Spinner spinner) throws IOException {
-        this.layoutGeneral = layoutGeneral;
-        this.inflater = inflater;
-        this.currentActivity = currentActivity;
-        this.view = view;
-        this.championship = championship;
+    public Fixtures(FragmentFixtures fragmentFixtures, String day, boolean refreshSpinner) throws IOException {
+        this.fragmentFixtures = fragmentFixtures;
         this.day = day;
         fixturesGame = new ArrayList<>();
         this.refreshSpinner = refreshSpinner;
-        this.spinner = spinner;
 
     }
 
@@ -64,19 +55,19 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
 
         params.setMargins(0, 500, 0, 0);
 
-        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.layoutGeneral)),false);
+        progressBar = fragmentFixtures.getInflater().inflate(R.layout.loading,fragmentFixtures.getViewGeneral().findViewById((R.id.layoutGeneral)),false);
 
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentFixtures.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                layoutGeneral.removeAllViews();
-                layoutGeneral.addView(progressBar, params);
+                fragmentFixtures.getLayoutGeneral().removeAllViews();
+                fragmentFixtures.getLayoutGeneral().addView(progressBar, params);
             }
         });
 
             try {
 
-                String urlString2 = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/container.json";
+                String urlString2 = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + fragmentFixtures.getChampionship() + "/current/container.json";
                 URL url2 = new URL(urlString2);
                 BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(url2.openStream()));
                 String jsonString2 = bufferedReader2.readLine();
@@ -99,7 +90,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                 if (day.equals("1")) {
                     day += "r";
                 }
-                urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/" + day +"e-journee.json";
+                urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + fragmentFixtures.getChampionship() + "/current/" + day +"e-journee.json";
 
 
                 URL url = new URL(urlString);
@@ -113,7 +104,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                     if(item.get__type().equals("calendar_widget_list"))
                     {
                         for (FixturesJsonModel.Item itemBis : item.getItems()) {
-                            fixturesGame.add(new Game(itemBis.getEvent(), championship, (MainActivity) currentActivity));
+                            fixturesGame.add(new Game(itemBis.getEvent(), fragmentFixtures.getChampionship(), (MainActivity) fragmentFixtures.getCurrentActivity()));
                         }
                     }
                 }
@@ -130,23 +121,23 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void voids) {
 
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentFixtures.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                layoutGeneral.removeView(progressBar);
+                fragmentFixtures.getLayoutGeneral().removeView(progressBar);
 
                 if(refreshSpinner) {
 
 
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(currentActivity, R.layout.spinner_item);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragmentFixtures.getCurrentActivity(), R.layout.spinner_item);
 
                     for (Integer i = 1; i < nbFixtures; i++) {
                         adapter.add(i + "e journée");
                     }
-                    spinner.setAdapter(adapter);
-                    spinner.setSelection(Integer.parseInt(day) - 1);
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    fragmentFixtures.getSpinner().setAdapter(adapter);
+                    fragmentFixtures.getSpinner().setSelection(Integer.parseInt(day) - 1);
+                    fragmentFixtures.getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             // Get the spinner selected item text
@@ -159,8 +150,7 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                                 day = day.substring(0, 1);
 
                             try {
-                                Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutGeneral, day, false, spinner);
-                                fixtures.execute();
+                                new Fixtures(fragmentFixtures, day,false).execute();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -178,12 +168,12 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                     for(Game game : fixturesGame)
                     {
                         if(!date.equals(game.getDate())) {
-                            View titre_ligue = inflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                            View titre_ligue = fragmentFixtures.getInflater().inflate(R.layout.name_champ, fragmentFixtures.getViewGeneral().findViewById((R.id.compet)), false);
                             ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText(game.getDate());
-                            layoutGeneral.addView(titre_ligue);
+                            fragmentFixtures.getLayoutGeneral().addView(titre_ligue);
                             date = game.getDate();
                         }
-                        View truc =  inflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                        View truc =  fragmentFixtures.getInflater().inflate(R.layout.match_component,fragmentFixtures.getViewGeneral().findViewById((R.id.compet)),false);
                         ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
                         ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
                         ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
@@ -206,11 +196,11 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                         truc.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                ((MainActivity)fragmentFixtures.getCurrentActivity()).replaceFragment(new FragmentMatch((MainActivity) fragmentFixtures.getCurrentActivity(), game));
                             }
                         });
 
-                        layoutGeneral.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                        fragmentFixtures.getLayoutGeneral().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
                     }
                 }
 
