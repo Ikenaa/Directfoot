@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 
 import com.example.BackEnd.Championship;
 import com.example.BackEnd.Fixtures;
@@ -32,8 +33,9 @@ public class FragmentFixtures extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_fixtures, container, false);
         LinearLayout layoutFixtures = view.findViewById(R.id.layoutFixtures);
+        Spinner spinner = view.findViewById(R.id.spinner);
         try {
-            Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, "29");
+            Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, null, true, spinner);
             fixtures.execute();
         } catch (IOException e) {
             e.printStackTrace();

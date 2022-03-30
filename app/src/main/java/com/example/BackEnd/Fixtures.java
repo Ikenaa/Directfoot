@@ -38,8 +38,10 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
     private String day;
     private View progressBar;
     private String currentDay;
+    private boolean refreshSpinner;
+    private Spinner spinner;
 
-    public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutFixtures, String day) throws IOException {
+    public Fixtures(String championship, View view, AppCompatActivity currentActivity, LayoutInflater inflater, LinearLayout layoutFixtures, String day, boolean refreshSpinner, Spinner spinner) throws IOException {
         this.layoutFixtures = layoutFixtures;
         this.inflater = inflater;
         this.currentActivity = currentActivity;
@@ -47,13 +49,14 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
         this.championship = championship;
         this.day = day;
         fixturesGame = new ArrayList<>();
+        this.refreshSpinner = refreshSpinner;
+        this.spinner = spinner;
 
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
 
-        layoutFixtures = view.findViewById(R.id.layoutFixtures);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -88,20 +91,16 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
                     nbFixtures += 1;
                 }
 
+                String urlString;
+                if(day == null) {
+                    day = currentDay;
+                }
+
                 if (day.equals("1")) {
                     day += "r";
                 }
-                else if(currentDay.equals("1"))
-                {
-                    currentDay += "r";
-                }
+                urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/" + day +"e-journee.json";
 
-                String urlString;
-                if(day == null)
-                    urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/" + currentDay +"e-journee.json";
-
-                else
-                    urlString = "https://iphdata.lequipe.fr/iPhoneDatas/EFR/STD/ALL/V1/Football/CalendarList/CompetitionPhase/" + championship + "/current/" + day +"e-journee.json";
 
                 URL url = new URL(urlString);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -135,44 +134,72 @@ public class Fixtures extends AsyncTask<Void, Void, Void> {
             @Override
             public void run() {
                 layoutFixtures.removeView(progressBar);
-                Spinner spinner = view.findViewById(R.id.spinner);
+                if(refreshSpinner) {
 
 
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(currentActivity, R.layout.spinner_item);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(currentActivity, R.layout.spinner_item);
 
-                for(Integer i = 1; i< nbFixtures; i++)
-                {
-                    adapter.add(i+"e journée");
-                }
-                spinner.setAdapter(adapter);
-                spinner.setSelection(Integer.parseInt(day)-1);
-
-                for(Game game : fixturesGame)
-                {
-                    View truc =  inflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
-
-                    ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                    ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                    ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                    ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
-                    ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                    ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
-
-                    if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                    {
-                        ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                        ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                    for (Integer i = 1; i < nbFixtures; i++) {
+                        adapter.add(i + "e journée");
                     }
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(Integer.parseInt(day) - 1);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            // Get the spinner selected item text
+                            String day = (String) adapterView.getItemAtPosition(i);
+                            if(Character.isDigit(day.charAt(1)))
+                            {
+                                day = day.substring(0, 2);
+                            }
+                            else
+                                day = day.substring(0, 1);
 
-                    else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                    {
-                        ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                        ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                    }
+                            try {
+                                Fixtures fixtures = new Fixtures(championship, view, currentActivity, inflater, layoutFixtures, day, false, spinner);
+                                fixtures.execute();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
-                    layoutFixtures.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
                 }
+                else
+                {
+                    for(Game game : fixturesGame)
+                    {
+                        View truc =  inflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+
+                        ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                        ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                        ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
+                        ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
+                        ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                        ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+
+                        if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
+                        {
+                            ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                            ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                        }
+
+                        else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
+                        {
+                            ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
+                            ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
+                        }
+
+                        layoutFixtures.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                    }
+                }
+
             }
         });
 
