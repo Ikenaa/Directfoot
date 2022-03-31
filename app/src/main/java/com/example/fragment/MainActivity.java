@@ -12,7 +12,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity{
 
     private Fragment fragment1;
-    private Button AccueilFragmentBtn, ClassementFragmentBtn, SearchFragmentBtn, DirectFragmentButton;
+    private Button AccueilFragmentBtn, SearchFragmentBtn, DirectFragmentButton;
 
    // private SwipeListener swipeListener;
     @Override

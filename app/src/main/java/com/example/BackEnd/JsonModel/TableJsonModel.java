@@ -4,22 +4,21 @@ import java.util.ArrayList;
 
 public class TableJsonModel {
     public class Item{
-        public int nombre_points;
-        public int buts_contre;
-        public int rang;
-        public int difference_de_buts;
+        private int nombre_points;
+        private int buts_contre;
+        private int rang;
+        private int difference_de_buts;
+        private Equipe equipe;
+        private int nombre_de_victoires;
+        private int nombre_de_defaites;
+        private int nombre_de_matchs;
+        private int buts_pour;
+        private int nombre_de_nuls;
+        private Objet objet;
 
         public Equipe getEquipe() {
             return equipe;
         }
-
-        public Equipe equipe;
-        public int nombre_de_victoires;
-        public int nombre_de_defaites;
-        public int nombre_de_matchs;
-        public int buts_pour;
-        public int nombre_de_nuls;
-        public Objet objet;
 
         public Objet getObjet() {
             return objet;
@@ -63,8 +62,8 @@ public class TableJsonModel {
     }
 
     public class Equipe{
-        public String nom;
-        public String url_image;
+        private String nom;
+        private String url_image;
 
         public String getUrl_image() {
             return url_image;
@@ -77,7 +76,7 @@ public class TableJsonModel {
     }
 
     public class Objet{
-        public ArrayList<Item> items;
+        private ArrayList<Item> items;
 
         public ArrayList<Item> getItems() {
             return items;
@@ -85,7 +84,7 @@ public class TableJsonModel {
     }
 
     public class Root{
-        public ArrayList<Item> items;
+        private ArrayList<Item> items;
 
         public ArrayList<Item> getItems() {
             return items;

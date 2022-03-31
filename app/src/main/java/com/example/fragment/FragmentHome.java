@@ -16,7 +16,6 @@ import com.example.BackEnd.Championship;
 public class FragmentHome extends Fragment {
 
     private View view;
-    private TextView team;
     private ImageButton ligue1,bundesliga,serieA,premLeague,liga;
     private TextView ligue1Text, bundesligaText, serieAtext, premLeagueText, ligaText;
     private MainActivity mainActivity;

@@ -18,12 +18,10 @@ import com.example.BackEnd.Statut;
 
 public class FragmentMatch extends Fragment {
 
-    private MainActivity currentActivity;
     private Game game;
 
     public FragmentMatch(MainActivity currentActivity, Game game) {
         // Required empty public constructor
-        this.currentActivity = currentActivity;
         this.game = game;
     }
 

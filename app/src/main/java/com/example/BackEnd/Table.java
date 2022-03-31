@@ -122,8 +122,4 @@ public class Table extends AsyncTask<Void, Void, Void> {
         });
 
     }
-
-    public ArrayList<Team> getTableTeams() {
-        return tableTeams;
-    }
 }

@@ -7,7 +7,6 @@ public class FixturesJsonModel {
 
 
     public class Statut{
-
         private String type;
 
         public String getType() {

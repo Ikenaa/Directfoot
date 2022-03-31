@@ -29,7 +29,6 @@ public class FragmentLive extends Fragment {
 
 
     private View view;
-    private TextView team;
     private MainActivity currentActivity;
     private Date dateObj;
     private Button day;
@@ -132,10 +131,6 @@ public class FragmentLive extends Fragment {
         return view;
     }
 
-
-    public TextView getTeam() {
-        return team;
-    }
 
     public MainActivity getCurrentActivity() {
         return currentActivity;
