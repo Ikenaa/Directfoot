@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-        fragment1 = new FragmentDirect(mainActivity);
+        fragment1 = new FragmentHome(mainActivity);
 
 
         replaceFragment(fragment1);

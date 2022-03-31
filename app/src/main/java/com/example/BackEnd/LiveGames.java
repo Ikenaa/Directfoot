@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -172,217 +173,195 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
             @Override
             public void run() {
                 competFav.removeView(progressBar);
-                if(isAFootballDay())
-                {
-                    if(isAFranceChampionshipDay())
+                if(isAFootballDay()) {
+                    if (isAEnglandChampionshipDay() || isAFranceChampionshipDay() || isAGermanyChampionshipDay() || isAItalyChampionshipDay() || isASpainChampionshipDay())
                     {
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ,view.findViewById((R.id.compet)),false);
+                        if (isAFranceChampionshipDay()) {
+                            View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
 
-                        ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Ligue 1");
+                            ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Ligue 1");
 
-                        competFav.addView(titre_ligue);
+                            competFav.addView(titre_ligue);
 
-                        for(Game game : franceGames)
-                        {
-                            View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                            for (Game game : franceGames) {
+                                View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
 
-                            truc.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                truc.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    }
+                                });
+
+                                ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                                ((TextView) truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                                ((TextView) truc.findViewById(R.id.actual)).setText(game.getHour());
+                                ((TextView) truc.findViewById(R.id.statut)).setText(game.getStatut());
+
+                                ((ImageView) truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                                ((ImageView) truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+
+                                if (game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME)) {
+                                    ((TextView) truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                                    ((TextView) truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                                } else if (game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING)) {
+                                    ((TextView) truc.findViewById(R.id.score_team1)).setText("-");
+                                    ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                                 }
-                            });
 
-                            ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                            ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                            ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                            ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
-
-                            ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                            ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
-
-                            if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                                competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                             }
-
-                            else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                            }
-
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
                         }
-                    }
-                    if(isAEnglandChampionshipDay())
-                    {
+                    if (isAEnglandChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ,view.findViewById((R.id.compet)),false);
+                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Premier League");
 
                         competFav.addView(titre_ligue);
 
 
-                        for(Game game : englandGames)
-                        {
-                            View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                        for (Game game : englandGames) {
+                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
 
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
                                 }
                             });
-                            ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                            ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                            ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                            ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
+                            ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                            ((TextView) truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                            ((TextView) truc.findViewById(R.id.actual)).setText(game.getHour());
+                            ((TextView) truc.findViewById(R.id.statut)).setText(game.getStatut());
 
-                            ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                            ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+                            ((ImageView) truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                            ((ImageView) truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
 
-                            if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            if (game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            } else if (game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText("-");
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                            }
-
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
-                    if(isAGermanyChampionshipDay())
-                    {
+                    if (isAGermanyChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ,view.findViewById((R.id.compet)),false);
+                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Bundesliga");
 
                         competFav.addView(titre_ligue);
 
-                        for(Game game : germanyGames)
-                        {
-                            View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                        for (Game game : germanyGames) {
+                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
                                 }
                             });
-                            ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                            ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                            ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                            ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
+                            ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                            ((TextView) truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                            ((TextView) truc.findViewById(R.id.actual)).setText(game.getHour());
+                            ((TextView) truc.findViewById(R.id.statut)).setText(game.getStatut());
 
-                            ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                            ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+                            ((ImageView) truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                            ((ImageView) truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
 
-                            if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            if (game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            } else if (game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText("-");
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                            }
-
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
-                    if(isAItalyChampionshipDay())
-                    {
+                    if (isAItalyChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ,view.findViewById((R.id.compet)),false);
+                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Serie A");
 
                         competFav.addView(titre_ligue);
 
-                        for(Game game : italyGames)
-                        {
-                            View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                        for (Game game : italyGames) {
+                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
                                 }
                             });
-                            ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                            ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                            ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                            ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
+                            ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                            ((TextView) truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                            ((TextView) truc.findViewById(R.id.actual)).setText(game.getHour());
+                            ((TextView) truc.findViewById(R.id.statut)).setText(game.getStatut());
 
-                            ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                            ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+                            ((ImageView) truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                            ((ImageView) truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
 
-                            if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            if (game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            } else if (game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText("-");
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                            }
-
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
-                    if(isASpainChampionshipDay())
-                    {
+                    if (isASpainChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ,view.findViewById((R.id.compet)),false);
+                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Liga");
 
                         competFav.addView(titre_ligue);
 
-                        for(Game game : spainGames)
-                        {
-                            View truc =  layoutInflater.inflate(R.layout.match_component,view.findViewById((R.id.compet)),false);
+                        for (Game game : spainGames) {
+                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity)currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
                                 }
                             });
-                            ((TextView)truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
-                            ((TextView)truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
-                            ((TextView)truc.findViewById(R.id.actual)).setText(game.getHour());
-                            ((TextView)truc.findViewById(R.id.statut)).setText(game.getStatut());
+                            ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
+                            ((TextView) truc.findViewById(R.id.team2)).setText(game.getAwayTeamName());
+                            ((TextView) truc.findViewById(R.id.actual)).setText(game.getHour());
+                            ((TextView) truc.findViewById(R.id.statut)).setText(game.getStatut());
 
-                            ((ImageView)truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
-                            ((ImageView)truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
+                            ((ImageView) truc.findViewById(R.id.logoHome)).setImageBitmap(game.getLogoHome());
+                            ((ImageView) truc.findViewById(R.id.logoAway)).setImageBitmap(game.getLogoAway());
 
-                            if(game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME) )
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            if (game.getStatut().equals(Statut.RUNNING) || game.getStatut().equals(Statut.FINISHED) || game.getStatut().equals(Statut.HALF_TIME)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText(game.getHomeScore());
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText(game.getAwayScore());
+                            } else if (game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING)) {
+                                ((TextView) truc.findViewById(R.id.score_team1)).setText("-");
+                                ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            else if(game.getStatut().equals(Statut.POSTPONED) || game.getStatut().equals(Statut.CANCELED) || game.getStatut().equals(Statut.COMING))
-                            {
-                                ((TextView)truc.findViewById(R.id.score_team1)).setText("-");
-                                ((TextView)truc.findViewById(R.id.score_team2)).setText("-");
-                            }
-
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0) );
+                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
                 }
+                    else
+                    {
+                        View noMatchToday = layoutInflater.inflate(R.layout.no_match_today,view.findViewById((R.id.compet)),false);
+                        competFav.addView(noMatchToday);
+                    }
+                }
+
             }
         });
 

@@ -87,7 +87,7 @@ public class FragmentDirect extends Fragment {
                 @Override
                 public void onClick(View view) {
                     try {
-                        day.setBackgroundColor(Color.BLACK);
+
                         LiveGames lg = new LiveGames(FragmentDirect.super.getView(), inflater, competFav, currentActivity, progressBar, t);
                         lg.execute();
                     } catch (IOException e) {

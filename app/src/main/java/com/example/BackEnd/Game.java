@@ -522,7 +522,6 @@ public class Game extends AsyncTask<Void, Void, Void> {
         return awayOffSide;
     }
 
-
     public void setView(View view) {
         this.view = view;
     }

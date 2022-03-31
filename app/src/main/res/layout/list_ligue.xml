@@ -32,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/ligue_1"
+                    android:id="@+id/ligue_1_button_logo"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/premier_league"
+                    android:id="@+id/premier_league_button_logo"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/serie_A"
+                    android:id="@+id/serie_a_button_logo"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/bundesliga"
+                    android:id="@+id/bundesliga_button_logo"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/liga"
+                    android:id="@+id/liga_button_logo"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

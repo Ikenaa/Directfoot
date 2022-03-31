@@ -19,11 +19,11 @@ public class FragmentClassementLigue extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ligue1.findViewById(R.id.ligue_1);
-        bundesliga.findViewById(R.id.bundesliga);
-        serieA.findViewById(R.id.serie_A);
-        premLeague.findViewById(R.id.premier_league);
-        liga.findViewById(R.id.liga);
+        ligue1.findViewById(R.id.ligue_1_button_logo);
+        bundesliga.findViewById(R.id.bundesliga_button_logo);
+        serieA.findViewById(R.id.serie_a_button_logo);
+        premLeague.findViewById(R.id.premier_league_button_logo);
+        liga.findViewById(R.id.liga_button_logo);
 
     }
 
