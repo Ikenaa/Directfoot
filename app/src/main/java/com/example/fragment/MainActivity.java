@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity{
 
         AccueilFragmentBtn = findViewById(R.id.accueil);
 
-        ClassementFragmentBtn = findViewById(R.id.classement);
 
         SearchFragmentBtn = findViewById(R.id.search);
 
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                //replaceFragment(new FragmentMatch(mainActivity));
+                replaceFragment(new FragmentRecherche(mainActivity));
 
             }
         });

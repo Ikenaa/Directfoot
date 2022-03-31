@@ -75,23 +75,6 @@
             android:textColor="@color/white"
 
             android:textSize="11sp" />
-
-
-
-        <Button
-            android:id="@+id/classement"
-            style="?android:attr/buttonBarButtonStyle"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:drawableTop="@android:drawable/ic_menu_sort_by_size"
-
-            android:text="@string/classement"
-            android:textColor="@color/white"
-            android:textSize="11sp"
-            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 

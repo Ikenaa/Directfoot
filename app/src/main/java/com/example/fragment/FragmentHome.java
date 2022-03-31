@@ -19,7 +19,6 @@ public class FragmentHome extends Fragment {
 
     private View view;
     private TextView team;
-    private AppCompatActivity currentActivity;
     private ImageButton ligue1,bundesliga,serieA,premLeague,liga;
     private MainActivity mainActivity;
 
@@ -44,7 +43,7 @@ public class FragmentHome extends Fragment {
         // Inflate the layout for this fragment
 
 
-        view = inflater.inflate(R.layout.list_ligue, container,false);
+        view = inflater.inflate(R.layout.list_ligue_v2, container,false);
         ligue1 = view.findViewById(R.id.ligue_1);
         bundesliga = view.findViewById(R.id.bundesliga);
         serieA = view.findViewById(R.id.serie_A);
@@ -54,42 +53,38 @@ public class FragmentHome extends Fragment {
         ligue1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.replaceFragment(new FragmentFixtures(currentActivity, Championship.LIGUE_1));
+                mainActivity.replaceFragment(new FragmentFixtures(mainActivity, Championship.LIGUE_1));
             }
         });
 
         bundesliga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.replaceFragment(new FragmentFixtures(currentActivity, Championship.BUNDESLIGA));
+                mainActivity.replaceFragment(new FragmentFixtures(mainActivity, Championship.BUNDESLIGA));
             }
         });
 
         premLeague.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.replaceFragment(new FragmentFixtures(currentActivity, Championship.PREMIER_LEAGUE));
+                mainActivity.replaceFragment(new FragmentFixtures(mainActivity, Championship.PREMIER_LEAGUE));
             }
         });
 
         liga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.replaceFragment(new FragmentFixtures(currentActivity, Championship.LIGA));
+                mainActivity.replaceFragment(new FragmentFixtures(mainActivity, Championship.LIGA));
             }
         });
 
         serieA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.replaceFragment(new FragmentFixtures(currentActivity, Championship.SERIE_A)) ;
+                mainActivity.replaceFragment(new FragmentFixtures(mainActivity, Championship.SERIE_A)) ;
             }
         });
 
         return view;
-    }
-
-    public void setFragmentActivity(AppCompatActivity activity){
-        this.currentActivity = activity;
     }
 }

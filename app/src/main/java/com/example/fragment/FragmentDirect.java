@@ -1,5 +1,6 @@
 package com.example.fragment;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -40,6 +41,7 @@ public class FragmentDirect extends Fragment {
     private TextView team;
     private MainActivity currentActivity;
     private Date dateObj;
+    private Button day;
 
     public FragmentDirect(MainActivity mainActivity) {
         super();
@@ -60,7 +62,6 @@ public class FragmentDirect extends Fragment {
         SimpleDateFormat dtf = new SimpleDateFormat("EEE dd/MM", new Locale("FR", "fr"));
         SimpleDateFormat dtf2 = new SimpleDateFormat("yyyyMMdd", new Locale("FR", "fr"));
         Calendar calendar = Calendar.getInstance();
-        Button day;
         calendar.add(Calendar.DATE, -8);
         String formattedDateButton;
         LiveGames lg;
@@ -86,7 +87,7 @@ public class FragmentDirect extends Fragment {
                 @Override
                 public void onClick(View view) {
                     try {
-
+                        day.setBackgroundColor(Color.BLACK);
                         LiveGames lg = new LiveGames(FragmentDirect.super.getView(), inflater, competFav, currentActivity, progressBar, t);
                         lg.execute();
                     } catch (IOException e) {
