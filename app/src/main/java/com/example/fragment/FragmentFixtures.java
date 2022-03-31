@@ -19,14 +19,19 @@ public class FragmentFixtures extends Fragment {
 
 
     private View viewGeneral;
-    private AppCompatActivity currentActivity;
+    private MainActivity currentActivity;
     private String championship;
     private LayoutInflater inflater;
     private LinearLayout layoutGeneral;
     private Spinner spinner;
+    private FragmentFixtures fragmentFixtures;
+    private View viewTable;
+    private LinearLayout underButton;
+    private View spinnerView;
 
-    public FragmentFixtures(AppCompatActivity currentActivity, String championship)
+    public FragmentFixtures(MainActivity currentActivity, String championship)
     {
+        this.fragmentFixtures = this;
         this.championship = championship;
         this.currentActivity = currentActivity;
     }
@@ -39,10 +44,10 @@ public class FragmentFixtures extends Fragment {
         layoutGeneral = viewGeneral.findViewById(R.id.layoutGeneral);
         Button tableButton = viewGeneral.findViewById(R.id.tableButton);
         Button fixturesButton = viewGeneral.findViewById(R.id.fixturesButton);
-        View viewTable = inflater.inflate(R.layout.fragment_classement_ligue, layoutGeneral, false);
+        viewTable = inflater.inflate(R.layout.fragment_classement_ligue, layoutGeneral, false);
 
-        View spinnerView = inflater.inflate(R.layout.spinner, viewGeneral.findViewById(R.id.underButtons), false );
-        LinearLayout underButton = viewGeneral.findViewById(R.id.underButtons);
+        spinnerView = inflater.inflate(R.layout.spinner, viewGeneral.findViewById(R.id.underButtons), false );
+        underButton = viewGeneral.findViewById(R.id.underButtons);
         spinner = spinnerView.findViewById(R.id.spinner);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0, 30, 0, 30);
@@ -58,7 +63,7 @@ public class FragmentFixtures extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Table table = new Table(championship, inflater, viewGeneral, (MainActivity) currentActivity, layoutGeneral, viewTable, underButton, spinnerView);
+                    Table table = new Table(championship, inflater, viewGeneral, (MainActivity) currentActivity, layoutGeneral, viewTable, underButton, spinnerView, fragmentFixtures);
                     table.execute();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -109,10 +114,21 @@ public class FragmentFixtures extends Fragment {
         return spinner;
     }
 
+    public View getViewTable() {
+        return viewTable;
+    }
+
+    public LinearLayout getUnderButton() {
+        return underButton;
+    }
+
+    public View getSpinnerView() {
+        return spinnerView;
+    }
 
 
 
-    public void setFragmentActivity(AppCompatActivity activity){
+    public void setFragmentActivity(MainActivity activity){
         this.currentActivity = activity;
     }
 }

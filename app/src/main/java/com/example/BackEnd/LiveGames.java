@@ -41,8 +41,6 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private int indexGermanyChampionship;
     private int indexEnglandChampionship;
     private LiveGamesJsonModel.Objet jsonObject;
-    private LinearLayout competFav;
-    private View progressBar;
     private String day;
 
 
@@ -51,7 +49,6 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private ArrayList<Game> germanyGames;
     private ArrayList<Game> englandGames;
     private ArrayList<Game> spainGames;
-    private MainActivity currentActivity;
     private FragmentLive fragmentLive;
 
 
@@ -65,11 +62,6 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
         this.fragmentLive = fragmentLive;
         this.day = day;
-        this.progressBar = progressBar;
-        //this.view = view;
-        this.competFav = competFav;
-        this.currentActivity = currentActivity;
-
 
 
     }
@@ -86,11 +78,11 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
         params.setMargins(0, 800, 0, 0);
 
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentLive.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                competFav.removeAllViews();
-                competFav.addView(progressBar, params);
+                fragmentLive.getCompetFav().removeAllViews();
+                fragmentLive.getCompetFav().addView(fragmentLive.getProgressBar(), params);
             }
         });
 
@@ -160,10 +152,10 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void voids) {
 
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentLive.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                competFav.removeView(progressBar);
+                fragmentLive.getCompetFav().removeView(fragmentLive.getProgressBar());
                 if(isAFootballDay()) {
                     if (isAEnglandChampionshipDay() || isAFranceChampionshipDay() || isAGermanyChampionshipDay() || isAItalyChampionshipDay() || isASpainChampionshipDay())
                     {
@@ -172,7 +164,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                             ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Ligue 1");
 
-                            competFav.addView(titre_ligue);
+                            fragmentLive.getCompetFav().addView(titre_ligue);
 
                             for (Game game : franceGames) {
                                 View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
@@ -180,7 +172,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                 truc.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                        (fragmentLive.getCurrentActivity()).replaceFragment(new FragmentMatch( fragmentLive.getCurrentActivity(), game));
                                     }
                                 });
 
@@ -200,7 +192,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                     ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                                 }
 
-                                competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                                fragmentLive.getCompetFav().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                             }
                         }
                     if (isAEnglandChampionshipDay()) {
@@ -209,7 +201,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Premier League");
 
-                        competFav.addView(titre_ligue);
+                        fragmentLive.getCompetFav().addView(titre_ligue);
 
 
                         for (Game game : englandGames) {
@@ -218,7 +210,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    (fragmentLive.getCurrentActivity()).replaceFragment(new FragmentMatch(fragmentLive.getCurrentActivity(), game));
                                 }
                             });
                             ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
@@ -237,7 +229,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                 ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                            fragmentLive.getCompetFav().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
                     if (isAGermanyChampionshipDay()) {
@@ -246,14 +238,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Bundesliga");
 
-                        competFav.addView(titre_ligue);
+                        fragmentLive.getCompetFav().addView(titre_ligue);
 
                         for (Game game : germanyGames) {
                             View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    (fragmentLive.getCurrentActivity()).replaceFragment(new FragmentMatch(fragmentLive.getCurrentActivity(), game));
                                 }
                             });
                             ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
@@ -272,7 +264,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                 ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                            fragmentLive.getCompetFav().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
                     if (isAItalyChampionshipDay()) {
@@ -281,14 +273,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Serie A");
 
-                        competFav.addView(titre_ligue);
+                        fragmentLive.getCompetFav().addView(titre_ligue);
 
                         for (Game game : italyGames) {
                             View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    (fragmentLive.getCurrentActivity()).replaceFragment(new FragmentMatch(fragmentLive.getCurrentActivity(), game));
                                 }
                             });
                             ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
@@ -307,7 +299,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                 ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                            fragmentLive.getCompetFav().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
                     if (isASpainChampionshipDay()) {
@@ -316,14 +308,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Liga");
 
-                        competFav.addView(titre_ligue);
+                        fragmentLive.getCompetFav().addView(titre_ligue);
 
                         for (Game game : spainGames) {
                             View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((MainActivity) currentActivity).replaceFragment(new FragmentMatch((MainActivity) currentActivity, game));
+                                    (fragmentLive.getCurrentActivity()).replaceFragment(new FragmentMatch(fragmentLive.getCurrentActivity(), game));
                                 }
                             });
                             ((TextView) truc.findViewById(R.id.team1)).setText(game.getHomeTeamName());
@@ -342,14 +334,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                                 ((TextView) truc.findViewById(R.id.score_team2)).setText("-");
                             }
 
-                            competFav.addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                            fragmentLive.getCompetFav().addView(truc, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                         }
                     }
                 }
                     else
                     {
                         View noMatchToday = fragmentLive.getLayoutInflater().inflate(R.layout.no_match_today,fragmentLive.getView().findViewById((R.id.compet)),false);
-                        competFav.addView(noMatchToday);
+                        fragmentLive.getCompetFav().addView(noMatchToday);
                     }
                 }
 
@@ -569,7 +561,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
         for(Item item : getChampionshipList().get(indexChampionship).getObjet().getItems())
         {
             if(item.getObjet().get__type().equalsIgnoreCase("rencontre_sport_collectif"))
-                gameArray.add(new Game(item.getObjet(), championship, currentActivity));
+                gameArray.add(new Game(item.getObjet(), championship, fragmentLive.getCurrentActivity()));
         }
         return gameArray;
     }

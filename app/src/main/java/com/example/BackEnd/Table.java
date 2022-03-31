@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.BackEnd.JsonModel.TableJsonModel;
+import com.example.fragment.FragmentFixtures;
 import com.example.fragment.MainActivity;
 import com.example.fragment.R;
 import com.google.gson.Gson;
@@ -26,26 +27,11 @@ public class Table extends AsyncTask<Void, Void, Void> {
     private ArrayList<Team> tableTeams;
     private String championship;
     private View progressBar;
-    private View viewGeneral;
-    private LayoutInflater inflater;
-    private MainActivity currentActivity;
-    private LinearLayout layoutGeneral;
-    private View viewTable;
-    private View spinnerView;
-    private LinearLayout underButton;
+    private FragmentFixtures fragmentFixtures;
 
+    public Table(String championship, LayoutInflater inflater, View viewGeneral, MainActivity currentActivity, LinearLayout layoutGeneral, View viewTable, LinearLayout underButton, View spinnerView, FragmentFixtures fragmentFixtures) throws Exception {
 
-
-
-    public Table(String championship, LayoutInflater inflater, View viewGeneral, MainActivity currentActivity, LinearLayout layoutGeneral, View viewTable, LinearLayout underButton, View spinnerView) throws Exception {
-
-        this.spinnerView = spinnerView;
-        this.underButton = underButton;
-        this.layoutGeneral = layoutGeneral;
-        this.viewTable = viewTable;
-        this.currentActivity = currentActivity;
-        this.viewGeneral = viewGeneral;
-        this.inflater = inflater;
+        this.fragmentFixtures = fragmentFixtures;
         this.championship = championship;
         tableTeams = new ArrayList<>();
     }
@@ -61,14 +47,14 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
         params.setMargins(0, 800, 0, 0);
 
-        progressBar = inflater.inflate(R.layout.loading, viewGeneral.findViewById((R.id.layoutGeneral)),false);
+        progressBar = fragmentFixtures.getInflater().inflate(R.layout.loading, fragmentFixtures.getViewGeneral().findViewById((R.id.layoutGeneral)),false);
 
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentFixtures.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                underButton.removeView(spinnerView);
-                layoutGeneral.removeAllViews();
-                layoutGeneral.addView(progressBar, params);
+                fragmentFixtures.getUnderButton().removeView(fragmentFixtures.getSpinnerView());
+                fragmentFixtures.getLayoutGeneral().removeAllViews();
+                fragmentFixtures.getLayoutGeneral().addView(progressBar, params);
             }
         });
 
@@ -99,38 +85,25 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void unused) {
-        currentActivity.runOnUiThread(new Runnable() {
+        fragmentFixtures.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                layoutGeneral.removeView(progressBar);
-                LinearLayout leftSideTable = viewTable.findViewById(R.id.layoutLeftSide);
-                LinearLayout rightSideTable = viewTable.findViewById(R.id.layoutRightSide);
+                fragmentFixtures.getLayoutGeneral().removeView(progressBar);
+                LinearLayout leftSideTable = fragmentFixtures.getViewTable().findViewById(R.id.layoutLeftSide);
+                LinearLayout rightSideTable = fragmentFixtures.getViewTable().findViewById(R.id.layoutRightSide);
 
                 Integer i= 1;
                 for(Team team : tableTeams)
                 {
-                    View leftSide = inflater.inflate(R.layout.left_side_table, viewGeneral.findViewById(R.id.layoutLeftSide), false);
+                    View leftSide = fragmentFixtures.getInflater().inflate(R.layout.left_side_table, fragmentFixtures.getViewGeneral().findViewById(R.id.layoutLeftSide), false);
                     ((TextView) leftSide.findViewById(R.id.rank)).setText(i.toString());
                     ((TextView) leftSide.findViewById(R.id.teamName)).setText(team.getTeamName());
                     ((ImageView) leftSide.findViewById(R.id.logo)).setImageBitmap(team.getLogo());
                     leftSideTable.addView(leftSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
 
 
-    /*
-                View rightSide = inflater.inflate(R.layout.right_side_table, view.findViewById(R.id.layoutRightSide), false);
-                ((TextView) rightSide.findViewById(R.id.points)).setText("32");
-                ((TextView) rightSide.findViewById(R.id.played)).setText("11");
-                ((TextView) rightSide.findViewById(R.id.win)).setText("12");
-                ((TextView) rightSide.findViewById(R.id.draw)).setText("13");
-                ((TextView) rightSide.findViewById(R.id.lose)).setText("14");
-                ((TextView) rightSide.findViewById(R.id.goalsFor)).setText("15");
-                ((TextView) rightSide.findViewById(R.id.goalsAgainst)).setText("16");
-                ((TextView) rightSide.findViewById(R.id.goalDiff)).setText("17");
-                rightSideTable.addView(rightSide, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
-    */
-
-                    View rightSide = inflater.inflate(R.layout.right_side_table, viewGeneral.findViewById(R.id.layoutRightSide), false);
+                    View rightSide = fragmentFixtures.getInflater().inflate(R.layout.right_side_table, fragmentFixtures.getViewGeneral().findViewById(R.id.layoutRightSide), false);
                     ((TextView) rightSide.findViewById(R.id.points)).setText(String.valueOf(team.getPoints()));
                     ((TextView) rightSide.findViewById(R.id.played)).setText(String.valueOf(team.getPlayedNumber()));
                     ((TextView) rightSide.findViewById(R.id.win)).setText(String.valueOf(team.getWinNumber()));
@@ -143,8 +116,8 @@ public class Table extends AsyncTask<Void, Void, Void> {
 
                     i+=1;
                 }
-                RelativeLayout layoutTable = viewTable.findViewById(R.id.layoutTable);
-                layoutGeneral.addView((View) layoutTable);
+                RelativeLayout layoutTable = fragmentFixtures.getViewTable().findViewById(R.id.layoutTable);
+                fragmentFixtures.getLayoutGeneral().addView((View) layoutTable);
             }
         });
 
