@@ -1,24 +1,18 @@
 package com.example.BackEnd;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel;
-import com.example.fragment.FragmentDirect;
-import com.example.fragment.FragmentFixtures;
+import com.example.fragment.FragmentLive;
 import com.example.fragment.FragmentMatch;
-import com.example.fragment.FragmentRecherche;
 import com.example.fragment.MainActivity;
 import com.example.fragment.R;
 import com.google.gson.Gson;
@@ -31,8 +25,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import com.example.BackEnd.JsonModel.LiveGamesJsonModel.*;
-
-import org.w3c.dom.Text;
 
 /**
  * Declaration of class LiveGames
@@ -49,8 +41,6 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private int indexGermanyChampionship;
     private int indexEnglandChampionship;
     private LiveGamesJsonModel.Objet jsonObject;
-    private View view;
-    private LayoutInflater layoutInflater;
     private LinearLayout competFav;
     private View progressBar;
     private String day;
@@ -62,6 +52,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
     private ArrayList<Game> englandGames;
     private ArrayList<Game> spainGames;
     private MainActivity currentActivity;
+    private FragmentLive fragmentLive;
 
 
     /**
@@ -70,13 +61,13 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
      *
      * @throws IOException
      */
-    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, MainActivity currentActivity, View progressBar, String day) throws IOException {
+    public LiveGames(View view, LayoutInflater layoutInflater, LinearLayout competFav, MainActivity currentActivity, View progressBar, String day, FragmentLive fragmentLive) throws IOException {
 
+        this.fragmentLive = fragmentLive;
         this.day = day;
         this.progressBar = progressBar;
-        this.view = view;
+        //this.view = view;
         this.competFav = competFav;
-        this.layoutInflater = layoutInflater;
         this.currentActivity = currentActivity;
 
 
@@ -177,14 +168,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                     if (isAEnglandChampionshipDay() || isAFranceChampionshipDay() || isAGermanyChampionshipDay() || isAItalyChampionshipDay() || isASpainChampionshipDay())
                     {
                         if (isAFranceChampionshipDay()) {
-                            View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                            View titre_ligue = fragmentLive.getLayoutInflater().inflate(R.layout.name_champ, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                             ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Ligue 1");
 
                             competFav.addView(titre_ligue);
 
                             for (Game game : franceGames) {
-                                View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
+                                View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                                 truc.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -214,7 +205,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                         }
                     if (isAEnglandChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                        View titre_ligue = fragmentLive.getLayoutInflater().inflate(R.layout.name_champ, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Premier League");
 
@@ -222,7 +213,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
 
 
                         for (Game game : englandGames) {
-                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
+                            View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -251,14 +242,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                     }
                     if (isAGermanyChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                        View titre_ligue = fragmentLive.getLayoutInflater().inflate(R.layout.name_champ, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Bundesliga");
 
                         competFav.addView(titre_ligue);
 
                         for (Game game : germanyGames) {
-                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
+                            View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -286,14 +277,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                     }
                     if (isAItalyChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                        View titre_ligue = fragmentLive.getLayoutInflater().inflate(R.layout.name_champ, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Serie A");
 
                         competFav.addView(titre_ligue);
 
                         for (Game game : italyGames) {
-                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
+                            View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -321,14 +312,14 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                     }
                     if (isASpainChampionshipDay()) {
 
-                        View titre_ligue = layoutInflater.inflate(R.layout.name_champ, view.findViewById((R.id.compet)), false);
+                        View titre_ligue = fragmentLive.getLayoutInflater().inflate(R.layout.name_champ, fragmentLive.getView().findViewById((R.id.compet)), false);
 
                         ((TextView) titre_ligue.findViewById(R.id.name_Ligue)).setText("Liga");
 
                         competFav.addView(titre_ligue);
 
                         for (Game game : spainGames) {
-                            View truc = layoutInflater.inflate(R.layout.match_component, view.findViewById((R.id.compet)), false);
+                            View truc = fragmentLive.getLayoutInflater().inflate(R.layout.match_component, fragmentLive.getView().findViewById((R.id.compet)), false);
                             truc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -357,7 +348,7 @@ public class LiveGames extends AsyncTask<Void, Void, Void> {
                 }
                     else
                     {
-                        View noMatchToday = layoutInflater.inflate(R.layout.no_match_today,view.findViewById((R.id.compet)),false);
+                        View noMatchToday = fragmentLive.getLayoutInflater().inflate(R.layout.no_match_today,fragmentLive.getView().findViewById((R.id.compet)),false);
                         competFav.addView(noMatchToday);
                     }
                 }

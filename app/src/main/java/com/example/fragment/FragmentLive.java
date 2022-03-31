@@ -1,39 +1,30 @@
 package com.example.fragment;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.BackEnd.Championship;
-import com.example.BackEnd.Game;
 import com.example.BackEnd.LiveGames;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class FragmentDirect extends Fragment {
+public class FragmentLive extends Fragment {
 
 
 
@@ -42,10 +33,15 @@ public class FragmentDirect extends Fragment {
     private MainActivity currentActivity;
     private Date dateObj;
     private Button day;
+    private View progressBar;
+    private LayoutInflater inflater;
+    private LinearLayout competFav;
+    private FragmentLive fragmentLive;
 
-    public FragmentDirect(MainActivity mainActivity) {
+    public FragmentLive(MainActivity mainActivity) {
         super();
         this.currentActivity = mainActivity;
+        this.fragmentLive = this;
     }
 
 
@@ -54,9 +50,11 @@ public class FragmentDirect extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
+        this.inflater = inflater;
         view = inflater.inflate(R.layout.fragment_accueil, container, false);
-        LinearLayout competFav = view.findViewById(R.id.compet);
-        View progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.compet)),false);
+        competFav = view.findViewById(R.id.compet);
+        progressBar = inflater.inflate(R.layout.loading,view.findViewById((R.id.compet)),false);
 
 
         SimpleDateFormat dtf = new SimpleDateFormat("EEE dd/MM", new Locale("FR", "fr"));
@@ -88,7 +86,7 @@ public class FragmentDirect extends Fragment {
                 public void onClick(View view) {
                     try {
 
-                        LiveGames lg = new LiveGames(FragmentDirect.super.getView(), inflater, competFav, currentActivity, progressBar, t);
+                        LiveGames lg = new LiveGames(FragmentLive.super.getView(), inflater, competFav, currentActivity, progressBar, t, fragmentLive);
                         lg.execute();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -100,7 +98,7 @@ public class FragmentDirect extends Fragment {
 
 
         try {
-            lg = new LiveGames(view, inflater, competFav, currentActivity, progressBar, null);
+            lg = new LiveGames(view, inflater, competFav, currentActivity, progressBar, null, this);
             lg.execute();
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,5 +130,34 @@ public class FragmentDirect extends Fragment {
     @Override
     public View getView() {
         return view;
+    }
+
+
+    public TextView getTeam() {
+        return team;
+    }
+
+    public MainActivity getCurrentActivity() {
+        return currentActivity;
+    }
+
+    public Date getDateObj() {
+        return dateObj;
+    }
+
+    public Button getDay() {
+        return day;
+    }
+
+    public View getProgressBar() {
+        return progressBar;
+    }
+
+    public LayoutInflater getInflater() {
+        return inflater;
+    }
+
+    public LinearLayout getCompetFav() {
+        return competFav;
     }
 }

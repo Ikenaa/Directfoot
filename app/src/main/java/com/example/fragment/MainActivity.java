@@ -2,19 +2,12 @@ package com.example.fragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
-import com.example.BackEnd.Championship;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -84,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                replaceFragment(new FragmentDirect(mainActivity));
+                replaceFragment(new FragmentLive(mainActivity));
 
             }
         });
